@@ -1,0 +1,29 @@
+{
+  "name": "nightsmurf",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@kyvg/vue3-notification": "^2.3.4",
+    "@popperjs/core": "^2.11.4",
+    "@vueuse/head": "^0.7.5",
+    "axios": "^0.26.1",
+    "bootstrap": "^5.1.3",
+    "bootstrap-icons-vue": "^1.8.1",
+    "jquery": "^3.6.0",
+    "moment": "^2.29.1",
+    "vee-validate": "^4.5.10",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.14",
+    "vuex": "^4.0.2",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.2.0",
+    "vite": "^2.8.0"
+  }
+}

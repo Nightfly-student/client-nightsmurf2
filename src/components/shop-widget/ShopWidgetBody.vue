@@ -1,0 +1,69 @@
+<template>
+  <div>
+    <div class="text-center info-box-shop">
+      <h2 class="text-light">Cheap League of Legends smurfs</h2>
+      <div class="w-25 m-auto width-mobile-small">
+        <p class="text-center">
+          Our accounts are of the highest quality and are cheaper than the
+          competitors.
+        </p>
+      </div>
+    </div>
+    <div>
+      <ShopWidgetRegion @selectedRegion="check" />
+    </div>
+    <div>
+      <ShopWidgetContent :products="products" :stock="stock" :home="home"/>
+    </div>
+  </div>
+</template>
+
+<script>
+import ShopWidgetRegion from "./ShopWidgetRegion.vue";
+import ShopWidgetContent from "./ShopWidgetContent.vue";
+import axios from "axios";
+
+export default {
+  name: "ShopWidgetBody",
+  components: {
+    ShopWidgetRegion,
+    ShopWidgetContent,
+  },
+  props: {
+    regionI: String,
+    home: Boolean,
+  },
+  data() {
+    return {
+      products: [],
+      stock: [],
+      selectedRegion: '',
+    };
+  },
+  methods: {
+    check(region) {
+      this.selectedRegion = region;
+      axios.get(`/api/licences/stock?region=${this.selectedRegion}`).then((response) => {
+        this.stock = response.data;
+        axios.get(`/api/products/items?region=${this.selectedRegion}`).then((res) => {
+          this.products = res.data.products;
+        });
+      });
+    },
+  },
+  created() {
+    this.check(this.regionI);
+  }
+};
+</script>
+
+<style scoped>
+.info-box-shop p {
+  color: gainsboro;
+}
+@media (max-width: 1199px) {
+  .width-mobile-small {
+    width: 90% !important;
+  }
+}
+</style>
