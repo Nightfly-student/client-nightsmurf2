@@ -4,7 +4,7 @@
       <h1 class="pt-4">Order #{{ order._id }}</h1>
       <p>Order Status: {{ order.paymentStatus }}</p>
       <div class="row pt-4 text-light">
-        <div class="col-6">
+        <div class="col-12 col-md-6">
           <h4 class="text-primary">Order Information</h4>
           <div class="card p-3 mb-3">
             <h4 class="text-center">Need Help?</h4>
@@ -74,7 +74,7 @@
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
           <h4 class="text-primary">Accounts</h4>
           <div class="card p-3">
             <p class="fs-5 m-auto" v-if="session.metadata.product_id">

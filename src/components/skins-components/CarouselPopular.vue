@@ -3,7 +3,7 @@
     <div id="carouselPopular" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <div class="card m-auto">
+          <div class="card m-auto shadow">
             <img
               src="/images/twitch_4.jpg"
               class="card-img-top img-size-pos"
@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div class="card m-auto">
+          <div class="card m-auto shadow">
             <img
               src="/images/Kassadin_5.jpg"
               class="card-img-top img-size-pos"
@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div class="card m-auto">
+          <div class="card m-auto shadow">
             <img
               src="/images/Nidalee_9.jpg"
               class="card-img-top img-size-pos"

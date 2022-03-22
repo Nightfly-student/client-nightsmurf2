@@ -2,7 +2,7 @@
   <div class="container-xl">
     <div class="row text-light justify-content-center">
       <div class="col-12 col-lg-4">
-        <div class="card m-2 mt-4  p-2">
+        <div class="card m-2 mt-4  p-2 Regular shadow">
           <BIconTrophy class="text-center fs-1 m-auto mt-3 mb-3" />
           <h2 class="card-title text-center">Ranked Ready</h2>
           <p class="card-body text-center">
@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="col-12 col-lg-4">
-        <div class="card m-2 p-2">
+        <div class="card m-2 p-2 Regular shadow">
           <BIconClockHistory class="text-center fs-1 m-auto mt-3 mb-3" />
           <h2 class="card-title text-center">Instant Delivery</h2>
           <p class="card-body text-center">
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="col-12 col-lg-4">
-        <div class="card m-2 mt-4 p-2">
+        <div class="card m-2 mt-4 p-2 Regular shadow">
           <BIconShieldCheck class="text-center fs-1 m-auto mt-3 mb-3" />
           <h2 class="card-title text-center">Lifetime Warranty</h2>
           <p class="card-body text-center">

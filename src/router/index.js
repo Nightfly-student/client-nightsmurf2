@@ -12,6 +12,12 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import OrderHistory from "../views/LoggedPages/OrderHistory.vue";
 import Settings from "../views/LoggedPages/Settings.vue";
+import Blogs from "../views/Blogs.vue";
+import BlogItem from "../views/BlogItem.vue";
+import Contact from "../views/Contact.vue";
+import NotFound from "../views/NotFound.vue";
+import TOS from "../views/TOS.vue";
+import PrivacyPolicy from "../views/PrivacyPolicy.vue";
 import store from "../store";
 
 const router = createRouter({
@@ -67,6 +73,19 @@ const router = createRouter({
           },
         ],
       },
+    },
+    {
+      path: "/blog/",
+      name: "Blog",
+      component: Blogs,
+      meta: {
+        title: "Blog - Nightsmurf",
+      },
+    },
+    {
+      path: "/blog/:slug",
+      name: "BlogItem",
+      component: BlogItem,
     },
     {
       path: "/category/:category",
@@ -179,6 +198,38 @@ const router = createRouter({
           },
         ],
       },
+    },
+    {
+      path: '/contact',
+      name: "Contact",
+      component: Contact,
+      meta: {
+        title: "Contact Us - Nightsmurf",
+      }
+    },
+    {
+      path: '/terms-of-service',
+      name: "TOS",
+      component: TOS,
+      meta: {
+        title: "Terms Of Service - Nightsmurf",
+      }
+    },
+    {
+      path: '/privacy-policy',
+      name: "PrivacyPolicy",
+      component: PrivacyPolicy,
+      meta: {
+        title: "Privacy policy - Nightsmurf",
+      }
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: "NotFound",
+      component: NotFound,
+      meta: {
+        title: "Page Not Found - Nightsmurf",
+      }
     },
   ],
 });

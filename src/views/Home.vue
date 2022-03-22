@@ -2,17 +2,38 @@
   <div>
     <Head>
       <title>Buy Cheap Smurf Accounts - Nightsmurf</title>
-      <meta name="description" content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more" />
+      <meta
+        name="description"
+        content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more"
+      />
 
       <!-- Social -->
-      <meta property="og:title" content="Buy Cheap Smurf Accounts - Nightsmurf" />
-      <meta property="og:description" content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more" />
-      <meta property="og:image" content="https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png" />
+      <meta
+        property="og:title"
+        content="Buy Cheap Smurf Accounts - Nightsmurf"
+      />
+      <meta
+        property="og:description"
+        content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more"
+      />
+      <meta
+        property="og:image"
+        content="https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png"
+      />
 
       <!-- Twitter -->
-      <meta name="twitter:title" content="Buy Cheap Smurf Accounts - Nightsmurf" />
-      <meta name="twitter:description" content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more" />
-      <meta name="twitter:image" content="https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png" />
+      <meta
+        name="twitter:title"
+        content="Buy Cheap Smurf Accounts - Nightsmurf"
+      />
+      <meta
+        name="twitter:description"
+        content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more"
+      />
+      <meta
+        name="twitter:image"
+        content="https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png"
+      />
       <meta name="twitter:card" content="summary_large_image" />
     </Head>
     <header class="text-light">
@@ -123,7 +144,7 @@
         <h6 class="text-primary">Still not sure?</h6>
         <h2 class="px-4">Here are some reasons to buy a lol smurf account</h2>
         <div class="container mt-5">
-          <div class="row box-design h-100">
+          <div class="row box-design h-100 Regular shadow">
             <div class="col-12 col-md-6 col-lg-4 text-start mb-5 p-3">
               <h3>1. Feel like a pro</h3>
               <p class="fs-5">
@@ -202,6 +223,11 @@
           </div>
         </div>
       </div>
+      <div class="divider-top container-xl text-light">
+        <h2 class="text-center">Our Posts</h2>
+        <p class="text-center">Learn more about League of Legends Smurfing</p>
+        <BlogCard/>
+      </div>
     </div>
   </div>
 </template>
@@ -211,6 +237,7 @@ import { Head } from "@vueuse/head";
 import ShopWidgetBody from "../components/shop-widget/ShopWidgetBody.vue";
 import QuoteBanner from "../components/banners/QuoteBanner.vue";
 import HeroBoxes from "../components/boxes/HeroBoxes.vue";
+import BlogCard from "../components/blog-components/BlogCard.vue";
 
 export default {
   name: "Home",
@@ -218,6 +245,7 @@ export default {
     ShopWidgetBody,
     QuoteBanner,
     HeroBoxes,
+    BlogCard
   },
 };
 </script>

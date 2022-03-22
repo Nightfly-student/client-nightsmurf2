@@ -12,7 +12,7 @@
           </div>
           <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 text-light">
             <Form
-              class="card-white m-1 Regular shadow"
+              class="card-white m-1 shadow"
               :validation-schema="schema"
               @submit="onSubmit"
             >

@@ -1,12 +1,12 @@
 <template>
-    <div>
-      <notifications width="auto"/>
-      <NavBar />
-      <div class="wrapper">
-        <RouterView />
-      </div>
-      <Footer />
+  <div>
+    <notifications width="auto" />
+    <NavBar />
+    <div class="wrapper">
+      <RouterView />
     </div>
+    <Footer />
+  </div>
 </template>
 
 <script>
@@ -18,8 +18,8 @@ export default {
     Footer,
   },
   created() {
-    this.$store.dispatch('autoLogin');
-  }
+    this.$store.dispatch("autoLogin");
+  },
 };
 </script>
 
@@ -28,6 +28,7 @@ export default {
 
 body {
   font-family: "Fredoka", sans-serif !important;
+  background: #111111!important;
 }
 h1,
 h2,
@@ -42,8 +43,8 @@ h4 {
 .vue-notification {
   margin: 0 5px 5px;
   padding: 10px;
-  font-size: 16px!important;
+  font-size: 16px !important;
   color: #ffffff;
-  text-align: center!important;
+  text-align: center !important;
 }
 </style>

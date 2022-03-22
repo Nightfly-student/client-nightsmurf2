@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div @click="getChamp" class="card text-light cursor py-3">
+    <div @click="getChamp" class="card text-light cursor py-3 shadow-sm">
       <img
         class="img-circle"
         :src="imageLoading ? '/images/blank_champion.png' : imgSource"

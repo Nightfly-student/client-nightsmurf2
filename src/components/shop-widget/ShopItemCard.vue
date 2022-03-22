@@ -1,5 +1,5 @@
 <template>
-  <div class="card text-light m-3 py-3" style="width: 18rem">
+  <div class="card text-light m-3 py-3 shadow" style="width: 18rem">
     <p class="btn btn-primary button-warranty">Liftime Warranty</p>
     <img
       src="/images/yone_1.jpg"
