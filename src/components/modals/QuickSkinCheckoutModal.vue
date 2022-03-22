@@ -43,6 +43,7 @@
               :value="quantityValue"
               @change="onChange($event.target.value)"
               min="1"
+              @blur="onChange($event.target.value)"
               max="1"
             />
           </div>
@@ -86,6 +87,7 @@
               @change="onChangeMail($event.target.value)"
               type="email"
             />
+            <p class="m-0 text-danger">{{ emailErr }}</p>
             <hr />
             <h3>Payment Methods</h3>
             <div v-if="!startPay">
@@ -134,11 +136,20 @@ export default {
       quantityValue: 1,
       email: "",
       startPay: false,
+      emailErr: "",
     };
   },
   methods: {
     onChange(value) {
-      this.quantityValue = value;
+      if (/^\d+$/.test(value.toString())) {
+        if (value <= this.stock) {
+          this.quantityValue = value;
+        } else {
+          this.quantityValue = this.stock;
+        }
+      } else {
+        this.quantityValue = 1;
+      }
     },
     onChangeMail(value) {
       this.email = value;
@@ -146,6 +157,10 @@ export default {
     },
     startPayment() {
       if (this.email === "") {
+        return;
+      }
+      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
+        this.emailErr = "Invalid Email";
         return;
       }
       this.startPay = true;

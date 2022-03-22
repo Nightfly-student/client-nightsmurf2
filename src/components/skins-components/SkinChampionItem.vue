@@ -32,7 +32,7 @@ export default {
       var championName = this.champion.id;
 
       this.imgSource =
-        "http://ddragon.leagueoflegends.com/cdn/" +
+        "https://ddragon.leagueoflegends.com/cdn/" +
         this.version +
         "/img/champion/" +
         championName +
