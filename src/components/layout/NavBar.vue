@@ -15,7 +15,7 @@
           <router-link class="nav-item nav-link active" to="/"
             >Home</router-link
           >
-          <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+          <div class="navbar-collapse" id="navbarNavDarkDropdown">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
                 <a
