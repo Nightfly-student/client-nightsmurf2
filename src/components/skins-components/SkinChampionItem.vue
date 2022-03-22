@@ -3,13 +3,8 @@
     <div @click="getChamp" class="card text-light cursor py-3">
       <img
         class="img-circle"
-        :src="
-          'http://ddragon.leagueoflegends.com/cdn/' +
-          version +
-          '/img/champion/' +
-          champion.id +
-          '.png'
-        "
+        :src="imageLoading ? '/images/blank_champion.png' : imgSource"
+        @load="imageLoading = false"
       />
       <h3 class="text-center p-2">{{ champion.id }}</h3>
     </div>
@@ -23,9 +18,33 @@ export default {
     champion: Object,
     version: String,
   },
+  data() {
+    return {
+      imgSource: "",
+      imageLoading: true,
+    };
+  },
   methods: {
     getChamp() {
       this.$emit("champion", this.champion);
+    },
+    getUrl() {
+      var championName = this.champion.id;
+
+      this.imgSource =
+        "http://ddragon.leagueoflegends.com/cdn/" +
+        this.version +
+        "/img/champion/" +
+        championName +
+        ".png";
+    },
+  },
+  mounted() {
+    this.getUrl();
+  },
+  watch: {
+    imgSource: function () {
+      this.imageLoading = true;
     },
   },
   emits: ["champion"],

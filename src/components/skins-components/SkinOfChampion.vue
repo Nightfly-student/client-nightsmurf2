@@ -14,15 +14,10 @@
       </a>
       <a v-else class="btn btn-primary button-warranty hidden"> </a>
       <img
-        :src="
-          'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/' +
-          champion.id +
-          '_' +
-          skinId +
-          '.jpg'
-        "
+        :src="imageLoading ? '/images/blank_loading.jpg' : imgSource"
         class="card-img-top img-size-pos"
         :alt="champion.id"
+        @load="imageLoading = false"
       />
       <a
         href="#"
@@ -65,7 +60,11 @@
         </div>
       </div>
     </div>
-    <QuickSkinCheckoutModal :champion="champion" :skin="championSkin" :price="price" />
+    <QuickSkinCheckoutModal
+      :champion="champion"
+      :skin="championSkin"
+      :price="price"
+    />
   </div>
 </template>
 
@@ -94,6 +93,8 @@ export default {
     return {
       skinId: 0,
       price: 7.22,
+      imageLoading: false,
+      imgSource: "",
     };
   },
   methods: {
@@ -101,6 +102,15 @@ export default {
       var id = this.championSkin.id.toString();
       id = id.charAt(id.length - 2) + id.charAt(id.length - 1);
       this.skinId = parseInt(id);
+
+      if(this.championSkin.id === 9009) {
+        this.champion.id = "FiddleSticks";
+      }
+      this.imgSource = 'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/' +
+              this.champion.id +
+              '_' +
+              this.skinId +
+              '.jpg';
     },
     priceUpper() {
       if (this.championSkin.rarity === "kNoRarity") {
@@ -123,6 +133,11 @@ export default {
   mounted() {
     this.getSkinId();
     this.priceUpper();
+  },
+  watch: {
+    imgSource: function () {
+      this.imageLoading = true;
+    },
   },
 };
 </script>

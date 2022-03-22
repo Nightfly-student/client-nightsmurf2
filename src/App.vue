@@ -25,6 +25,7 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Fredoka&family=Merriweather+Sans:wght@800&display=swap");
+
 body {
   font-family: "Fredoka", sans-serif !important;
 }

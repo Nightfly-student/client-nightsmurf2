@@ -121,7 +121,7 @@
       </div>
       <div class="text-center text-light">
         <h6 class="text-primary">Still not sure?</h6>
-        <h2>Here are some reasons to buy a lol smurf account</h2>
+        <h2 class="px-4">Here are some reasons to buy a lol smurf account</h2>
         <div class="container mt-5">
           <div class="row box-design h-100">
             <div class="col-12 col-md-6 col-lg-4 text-start mb-5 p-3">

@@ -12,7 +12,7 @@
             ></button>
             <h3>Apply Coupon</h3>
             <p>Enter your coupon code here below.</p>
-            <input class="p-1" type="text" />
+            <input placeholder="Coupon" class="p-1 coupon-size" type="text" />
             <button class="btn btn-primary ms-3">Apply Coupon</button>
             <hr />
             <h4 class="pb-3">{{ skin.name }} - {{ skin.region }}</h4>
@@ -91,7 +91,7 @@
             <div v-if="!startPay">
               <p>click on payment method to start payment process</p>
               <button class="btn btn-dark" @click="startPayment()">
-                <img src="/images/stripe.png" />
+                <img class="img-size" src="/images/stripe.png" />
               </button>
               <p class="m-0 tiny-text">
                 Klarna/Sofort payments can take up to 3 days to be processed.
@@ -183,5 +183,13 @@ export default {
   font-size: 11px;
   text-align: center;
   color: #4a90f8;
+}
+@media (max-width: 800px) {
+  .img-size {
+    width: 90%;
+  }
+  .coupon-size {
+    width: 30%;
+  }
 }
 </style>
