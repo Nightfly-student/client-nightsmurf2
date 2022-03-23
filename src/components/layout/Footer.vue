@@ -1,9 +1,9 @@
 <template>
   <footer>
     <div class="container-xl text-light">
-      <div class="row pb-5">
-        <div class="col-md-6 col-12">
-          <div class="w-75">
+      <div class="row pb-5 justify-content-center">
+        <div class="col-md-6 col-12 pb-5">
+          <div class="w-75 m-auto">
             <h1>
               <img class="img-size" src="/images/logo.png" /><span class="ms-3"
                 >Nightsmurf</span
@@ -14,28 +14,38 @@
               them ragequit.
             </p>
           </div>
-          <BIconTwitter @click="twitter" class="icon-size me-4" />
-          <BIconInstagram @click="instagram" class="icon-size me-4" />
-          <BIconYoutube @click="youtube" class="icon-size me-4" />
+          <div class="w-75 m-auto">
+            <BIconTwitter @click="twitter" class="icon-size me-4" />
+            <BIconInstagram @click="instagram" class="icon-size me-4" />
+            <BIconYoutube @click="youtube" class="icon-size me-4" />
+          </div>
         </div>
-        <div class="col-md-3 col-12">
+        <div class="col-md-3 col-6 padding-footer">
           <p class="fs-5">Nightsmurf</p>
           <ul class="nav flex-column">
             <li class="nav-item">
-              <router-link class="nav-link" to="/contact">Contact Us</router-link>
+              <router-link class="nav-link" to="/contact"
+                >Contact Us</router-link
+              >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/terms-of-service">Terms Of Service</router-link>
+              <router-link class="nav-link" to="/terms-of-service"
+                >Terms Of Service</router-link
+              >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/privacy-policy">Privacy Policy</router-link>
+              <router-link class="nav-link" to="/privacy-policy"
+                >Privacy Policy</router-link
+              >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/">Frequently Asked Questions</router-link>
+              <router-link class="nav-link" to="/"
+                >Frequently Asked Questions</router-link
+              >
             </li>
           </ul>
         </div>
-        <div class="col-md-3 col-12">
+        <div class="col-md-3 col-6">
           <p class="fs-5">Accounts</p>
           <ul class="nav flex-column">
             <li>
@@ -625,5 +635,10 @@ svg {
 }
 .icon-size:hover {
   color: #1462d6;
+}
+@media (max-width: 880px) {
+  .padding-footer {
+    padding-left: 3rem;
+  }
 }
 </style>
