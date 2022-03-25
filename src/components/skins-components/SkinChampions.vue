@@ -5,6 +5,11 @@
       @searchValue="checkSearch"
       @click="click"
     />
+    <p class="text-center alert alert-warning w-50 m-auto mt-3 mb-3">
+      The account only contains the Skin Shard not the Skin itself! You
+      need to use the orange essence to unlock it. It's not guaranteed that you
+      will have enough, but very likely.
+    </p>
     <SkinRegions @selectedRegion="check" />
     <div class="container mt-4 pb-4">
       <div v-if="!gotSelected" class="row g-4 justify-content-center">
@@ -67,7 +72,7 @@ export default {
       this.getSkinIds(reg);
       setTimeout(() => {
         this.region = reg;
-      },100);
+      }, 100);
     },
     click() {
       this.gotSelected = false;
@@ -125,4 +130,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+@media (max-width: 540px) {
+  .w-50 {
+    width: 85%!important;
+  }
+}
+</style>

@@ -45,9 +45,9 @@
               Looking to buy a lol smurf account? We got unranked account in
               stock for EUW, EUNE, NA, TR and OCE.
             </p>
-            <button class="btn btn-primary p-2 px-3 fs-5">
+            <a href="#shop" role="button" class="btn btn-primary p-2 px-3 fs-5">
               Buy Unranked Smurf
-            </button>
+            </a>
           </div>
           <div class="col-sm-6 col-0 d-none d-xl-block">
             <img

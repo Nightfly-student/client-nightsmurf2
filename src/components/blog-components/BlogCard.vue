@@ -48,7 +48,6 @@ export default {
     getBlogPosts() {
       axios.get("/api/blogs").then((res) => {
         this.blogs = res.data;
-        console.log(res.data);
       });
     },
   },

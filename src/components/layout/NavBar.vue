@@ -575,7 +575,7 @@ m38 -75 c-3 -3 -9 2 -12 12 -6 14 -5 15 5 6 7 -7 10 -15 7 -18z"
               class="dropdown-menu dropdown-menu-dark"
               aria-labelledby="dropdownMenuLink"
             >
-              <li v-if="checkIsAdmin">
+              <li v-if="this.$store.getters.isAdmin">
                 <router-link class="dropdown-item" to="/dashboard"
                   >Dashboard</router-link
                 >

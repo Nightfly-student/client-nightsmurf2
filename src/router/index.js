@@ -14,6 +14,7 @@ import OrderHistory from "../views/LoggedPages/OrderHistory.vue";
 import Settings from "../views/LoggedPages/Settings.vue";
 import Blogs from "../views/Blogs.vue";
 import BlogItem from "../views/BlogItem.vue";
+import Dashboard from "../views/AdminPages/Dashboard.vue";
 import Contact from "../views/Contact.vue";
 import NotFound from "../views/NotFound.vue";
 import TOS from "../views/TOS.vue";
@@ -101,18 +102,6 @@ const router = createRouter({
       component: Product,
       meta: {
         title: "Unranked Skin Accounts - Nightsmurf",
-        metaTags: [
-          {
-            name: "description",
-            content:
-              "We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more",
-          },
-          {
-            property: "og:description",
-            content:
-              "We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more",
-          },
-        ],
       },
     },
     {
@@ -200,36 +189,45 @@ const router = createRouter({
       },
     },
     {
-      path: '/contact',
+      path: "/dashboard",
+      name: "Dashboard",
+      component: Dashboard,
+      beforeEnter: adminRoute,
+      meta: {
+        title: "Dashboard - Nightsmurf",
+      },
+    },
+    {
+      path: "/contact",
       name: "Contact",
       component: Contact,
       meta: {
         title: "Contact Us - Nightsmurf",
-      }
+      },
     },
     {
-      path: '/terms-of-service',
+      path: "/terms-of-service",
       name: "TOS",
       component: TOS,
       meta: {
         title: "Terms Of Service - Nightsmurf",
-      }
+      },
     },
     {
-      path: '/privacy-policy',
+      path: "/privacy-policy",
       name: "PrivacyPolicy",
       component: PrivacyPolicy,
       meta: {
         title: "Privacy policy - Nightsmurf",
-      }
+      },
     },
     {
-      path: '/:pathMatch(.*)*',
+      path: "/:pathMatch(.*)*",
       name: "NotFound",
       component: NotFound,
       meta: {
         title: "Page Not Found - Nightsmurf",
-      }
+      },
     },
   ],
 });
@@ -280,14 +278,30 @@ router.beforeEach((to, from, next) => {
 });
 
 function userRoute(to, from, next) {
-  var isAuthenticated = false;
-  if (store.getters.isLogged) isAuthenticated = true;
-  else isAuthenticated = false;
-  if (isAuthenticated) {
-    next();
-  } else {
-    next("/login");
-  }
+  store.dispatch("autoLogin");
+  setTimeout(() => {
+    var isAuthenticated = false;
+    if (store.getters.isLogged) isAuthenticated = true;
+    else isAuthenticated = false;
+    if (isAuthenticated) {
+      next();
+    } else {
+      next("/login");
+    }
+  }, 200);
+}
+function adminRoute(to, from, next) {
+  store.dispatch("autoLogin");
+  setTimeout(() => {
+    var isAuthenticated = false;
+    if (store.getters.isLogged && store.getters.isAdmin) isAuthenticated = true;
+    else isAuthenticated = false;
+    if (isAuthenticated) {
+      next();
+    } else {
+      next("/login");
+    }
+  }, 200);
 }
 function noRoute(to, from, next) {
   var isAuthenticated = false;
