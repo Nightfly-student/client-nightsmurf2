@@ -104,6 +104,9 @@
             <div v-if="orders">
               <AdminOrder />
             </div>
+            <div v-if="stock">
+              <AdminStock />
+            </div>
           </div>
         </div>
       </div>
@@ -121,6 +124,7 @@ import {
 } from "bootstrap-icons-vue";
 
 import AdminOrder from "../../components/admin-components/AdminOrder.vue";
+import AdminStock from "../../components/admin-components/AdminStock.vue";
 export default {
   name: "Dashboard",
   components: {
@@ -130,6 +134,7 @@ export default {
     BIconColumnsGap,
     BIconDiagram2,
     AdminOrder,
+    AdminStock,
   },
   data() {
     return {
