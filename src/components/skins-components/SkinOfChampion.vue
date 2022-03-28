@@ -1,6 +1,6 @@
 <template>
-  <div class="col-12 col-sm-12 col-md-6 col-lg-3 py-3">
-    <div class="card text-light m-3 shadow" style="width: 18rem">
+  <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 py-3">
+    <div class="card text-light m-auto shadow" style="width: 18rem">
       <a
         v-if="championSkin.rarity != 'kNoRarity'"
         class="btn btn-primary button-warranty"

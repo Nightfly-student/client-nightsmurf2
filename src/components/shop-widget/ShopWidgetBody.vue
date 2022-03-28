@@ -46,7 +46,7 @@ export default {
       axios.get(`/api/licences/stock?region=${this.selectedRegion}`).then((response) => {
         this.stock = response.data;
         axios.get(`/api/products/items?region=${this.selectedRegion}`).then((res) => {
-          this.products = res.data.products;
+          this.products = res.data.products.sort((p, a) => p.price > a.price);
         });
       });
     },

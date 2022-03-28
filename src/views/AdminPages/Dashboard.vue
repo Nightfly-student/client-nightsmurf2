@@ -179,4 +179,7 @@ export default {
 .bg-dark {
   background: #161616 !important;
 }
+.w-75 {
+  width: 95%!important;
+}
 </style>
