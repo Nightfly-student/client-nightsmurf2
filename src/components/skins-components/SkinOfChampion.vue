@@ -45,7 +45,7 @@
           </div>
           <div class="my-3">
             <BIconGem class="fs-4 me-2 text-primary" /> Blue Essence:
-            <strong class="float-end me-4">50.000+</strong>
+            <strong class="float-end me-4">40-60k+</strong>
           </div>
           <div class="my-3">
             <BIconGlobe class="fs-4 me-2 text-primary" /> Region:
