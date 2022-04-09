@@ -12,8 +12,8 @@
             ></button>
             <h3>Apply Coupon</h3>
             <p>Enter your coupon code here below.</p>
-            <input placeholder="Coupon" class="p-1 coupon-size" type="text" />
-            <button class="btn btn-primary ms-3">Apply Coupon</button>
+            <input v-model="coupon" placeholder="Coupon" class="p-1 coupon-size" type="text" />
+            <button @click="checkCoupon" class="btn btn-primary ms-3">Apply Coupon</button>
             <hr />
             <h4 class="pb-3">{{ skin.name }} - {{ skin.region }}</h4>
             <p class="fs-5">
@@ -23,7 +23,7 @@
             <p class="fs-5">
               Price:
               <span class="float-end fw-bold"
-                >&euro;{{ price.toFixed(2) }}</span
+                >&euro;{{ pricy.toFixed(2) }}</span
               >
             </p>
             <p class="fs-5">
@@ -55,7 +55,7 @@
               data-bs-dismiss="modal"
               class="btn btn-primary w-100"
             >
-              Continue (&euro;{{ (price * quantityValue).toFixed(2) }})
+              Continue (&euro;{{ (pricy * quantityValue).toFixed(2) }})
             </button>
           </div>
         </div>
@@ -137,6 +137,10 @@ export default {
       email: "",
       startPay: false,
       emailErr: "",
+      coupon: "",
+      priceHolder: this.price,
+      pricy: this.price,
+      currentCoupon: "",
     };
   },
   methods: {
@@ -171,16 +175,41 @@ export default {
       axios
         .post(`/api/orders/start`, {
           title: `${this.skin.name} - ${this.skin.region}`,
-          total: (this.quantityValue * this.price).toFixed(2),
+          total: (this.quantityValue * this.pricy).toFixed(2),
           quantity: this.quantityValue,
           email: this.email,
           region: this.skin.region,
           skin_id: this.skin.id,
           skin_name: this.skin.name,
           user: userId,
+          coupon: this.currentCoupon,
         })
         .then((res) => {
           window.open(res.data, "_self");
+        });
+    },
+    checkCoupon() {
+      axios
+        .get(`/api/coupons/${this.coupon}`)
+        .then((res) => {
+          if (res.data.discount === "%") {
+            var discount = (this.priceHolder / 100) * res.data.portion;
+            this.pricy = this.priceHolder - discount;
+          }
+          if (res.data.discount === "A") {
+            this.pricy = this.priceHolder - res.data.portion;
+          }
+          this.currentCoupon = this.res.data.coupon;
+          this.$notify({
+            text: "Successfully Applied Coupon",
+            type: "success",
+          });
+        })
+        .catch((err) => {
+          this.$notify({
+            text: err,
+            type: "error",
+          });
         });
     },
   },

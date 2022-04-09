@@ -12,8 +12,15 @@
             ></button>
             <h3>Apply Coupon</h3>
             <p>Enter your coupon code here below.</p>
-            <input placeholder="Coupon" class="p-1 coupon-size" type="text" />
-            <button class="btn btn-primary ms-3">Apply Coupon</button>
+            <input
+              v-model="coupon"
+              placeholder="Coupon"
+              class="p-1 coupon-size"
+              type="text"
+            />
+            <button @click="checkCoupon" class="btn btn-primary ms-3">
+              Apply Coupon
+            </button>
             <hr />
             <h4 class="pb-3">{{ product.title }}</h4>
             <p class="fs-5">
@@ -136,6 +143,9 @@ export default {
       email: "",
       startPay: false,
       emailErr: "",
+      coupon: "",
+      priceHolder: this.product.price,
+      currentCoupon: "",
     };
   },
   methods: {
@@ -176,9 +186,35 @@ export default {
           region: this.product.region,
           product_title: this.product.title,
           user: userId,
+          coupon: this.currentCoupon
         })
         .then((res) => {
           window.open(res.data, "_self");
+        });
+    },
+    checkCoupon() {
+      axios
+        .get(`/api/coupons/${this.coupon}`)
+        .then((res) => {
+          if (res.data.discount === "%") {
+            var discount = (this.priceHolder / 100) * res.data.portion;
+            this.product.price = this.priceHolder - discount;
+            console.log("hi");
+          }
+          if (res.data.discount === "A") {
+            this.product.price = this.priceHolder - res.data.portion;
+          }
+          this.currentCoupon = this.res.data.coupon;
+          this.$notify({
+            text: "Successfully Applied Coupon",
+            type: "success",
+          });
+        })
+        .catch((err) => {
+          this.$notify({
+            text: err,
+            type: "error",
+          });
         });
     },
   },

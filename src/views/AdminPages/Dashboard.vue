@@ -56,7 +56,7 @@
                   class="nav-link px-0 align-middle"
                 >
                   <BIconColumnsGap class="fs-4" />
-                  <span class="ms-1 d-none d-sm-inline">Products</span>
+                  <span class="ms-1 d-none d-sm-inline">Edits</span>
                 </a>
                 <ul
                   class="collapse nav flex-column ms-1"
@@ -67,10 +67,10 @@
                     <a
                       href="#"
                       class="nav-link px-0"
-                      @click="onClick('editProducts')"
-                      :class="{ activeLink: editProducts }"
+                      @click="onClick('coupons')"
+                      :class="{ activeLink: coupons }"
                     >
-                      <span class="d-none d-sm-inline">Edit Products</span> 1</a
+                      <span class="d-none d-sm-inline">Coupons</span> 1</a
                     >
                   </li>
                   <li>
@@ -107,6 +107,9 @@
             <div v-if="stock">
               <AdminStock />
             </div>
+            <div v-if="coupons">
+              <AdminCoupon/>
+            </div>
           </div>
         </div>
       </div>
@@ -125,6 +128,7 @@ import {
 
 import AdminOrder from "../../components/admin-components/AdminOrder.vue";
 import AdminStock from "../../components/admin-components/AdminStock.vue";
+import AdminCoupon from "../../components/admin-components/AdminCoupon.vue";
 export default {
   name: "Dashboard",
   components: {
@@ -135,6 +139,7 @@ export default {
     BIconDiagram2,
     AdminOrder,
     AdminStock,
+    AdminCoupon
   },
   data() {
     return {
@@ -142,7 +147,7 @@ export default {
       orders: false,
       stock: false,
       products: false,
-      editProducts: false,
+      coupons: false,
       addProduct: false,
       customers: false,
     };
@@ -153,7 +158,7 @@ export default {
       this.orders = false;
       this.stock = false;
       this.products = false;
-      this.editProducts = false;
+      this.coupons = false;
       this.addProduct = false;
       this.customers = false;
 

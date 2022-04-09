@@ -61,6 +61,7 @@
       </div>
     </div>
     <QuickSkinCheckoutModal
+      v-if="mounted"
       :champion="champion"
       :skin="championSkin"
       :price="price"
@@ -95,6 +96,7 @@ export default {
       price: 7.22,
       imageLoading: false,
       imgSource: "",
+      mounted: false,
     };
   },
   methods: {
@@ -103,14 +105,15 @@ export default {
       id = id.charAt(id.length - 2) + id.charAt(id.length - 1);
       this.skinId = parseInt(id);
 
-      if(this.championSkin.id === 9009) {
+      if (this.championSkin.id === 9009) {
         this.champion.id = "FiddleSticks";
       }
-      this.imgSource = 'https://ddragon.leagueoflegends.com/cdn/img/champion/loading/' +
-              this.champion.id +
-              '_' +
-              this.skinId +
-              '.jpg';
+      this.imgSource =
+        "https://ddragon.leagueoflegends.com/cdn/img/champion/loading/" +
+        this.champion.id +
+        "_" +
+        this.skinId +
+        ".jpg";
     },
     priceUpper() {
       if (this.championSkin.rarity === "kNoRarity") {
@@ -128,6 +131,7 @@ export default {
       if (this.championSkin.rarity === "kUltimate") {
         this.price = 9.49;
       }
+      this.mounted = true;
     },
   },
   mounted() {
