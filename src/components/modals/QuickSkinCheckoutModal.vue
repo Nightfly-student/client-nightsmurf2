@@ -199,7 +199,7 @@ export default {
           if (res.data.discount === "A") {
             this.pricy = this.priceHolder - res.data.portion;
           }
-          this.currentCoupon = this.res.data.coupon;
+          this.currentCoupon = res.data.coupon;
           this.$notify({
             text: "Successfully Applied Coupon",
             type: "success",
