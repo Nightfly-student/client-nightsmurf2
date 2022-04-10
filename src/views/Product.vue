@@ -73,7 +73,7 @@
     <div v-if="!found">
       <h2>not found</h2>
     </div>
-    <QuickCheckoutModal :product="product" :stock="stock" />
+    <QuickCheckoutModal v-if="mounted" :product="product" :stock="stock" />
   </div>
 </template>
 
@@ -87,8 +87,9 @@ export default {
   },
   data() {
     return {
-      product: [],
+      product: {},
       found: false,
+      mounted: false,
       stock: 0,
     };
   },
@@ -105,6 +106,7 @@ export default {
             )
             .then((response) => {
               this.stock = response.data.stock;
+              this.mounted = true;
             });
         })
         .catch(() => {
