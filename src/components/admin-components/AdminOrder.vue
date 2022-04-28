@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1 class="text-center text-light">Orders</h1>
+    <h1 class="text-center text-light">Orders</h1>
     <select
       class="form-select bg-dark text-light w-25 float-end my-2"
       aria-label="Default select example"
@@ -18,6 +18,7 @@
             <th scope="col">Email</th>
             <th scope="col">Total</th>
             <th scope="col">Date</th>
+            <th scope="col">Method</th>
             <th scope="col">Status</th>
             <th scope="col">Check</th>
           </tr>
@@ -27,7 +28,8 @@
             <th class="align-middle" scope="row">{{ order._id }}</th>
             <td class="align-middle">{{ order.email }}</td>
             <td class="align-middle">&euro;{{ order.total }}</td>
-            <td class="align-middle">{{ order.updatedAt }}</td>
+            <TimeFormatTable :order="order"/>
+            <td class="align-middle">{{ order.paymentMethod }}</td>
             <td class="align-middle">{{ order.paymentStatus }}</td>
             <td class="align-middle">
               <button class="btn btn-primary">Info</button>
@@ -41,9 +43,13 @@
 
 <script>
 import { authHeader } from "../../helpers/authHeader";
+import TimeFormatTable from "../dates/TimeFormatTable.vue";
 import axios from "axios";
 export default {
   name: "AdminOrder",
+  components: {
+    TimeFormatTable,
+  },
   data() {
     return {
       orders: [],
