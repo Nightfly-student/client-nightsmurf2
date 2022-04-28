@@ -10,7 +10,10 @@
             <h4 class="text-center">Need Help?</h4>
             <p class="text-center">Join our Discord server for 24/7 support</p>
           </div>
-          <div v-if="session.payment_status === 'paid'" class="card p-3 mb-3">
+          <div
+            v-if="session.payment_status === 'paid' || session.status === '1'"
+            class="card p-3 mb-3"
+          >
             <h4 class="text-center">Order Completed</h4>
             <p class="m-0 text-center">Your Account Info</p>
             <div v-for="licence in licences" :key="licence._id">
@@ -42,7 +45,13 @@
               </div>
             </div>
           </div>
-          <div v-else class="card p-3 mb-3">
+          <div
+            v-if="
+              session.payment_status != 'paid' &&
+              order.paymentMethod === 'stripe'
+            "
+            class="card p-3 mb-3"
+          >
             <h4 class="text-center">Method: Stripe</h4>
             <p class="text-center">Please complete your payment below</p>
             <button @click="payStripe" class="btn btn-primary w-25 m-auto">
@@ -51,6 +60,19 @@
             <div class="alert alert-info mt-3 text-center" role="alert">
               Note: If you paid using Sofort it can take 1-3 days for the funds
               to arrive to Nightsmurf.
+            </div>
+          </div>
+          <div
+            v-if="session.status != '1' && order.paymentMethod === 'payop'"
+            class="card p-3 mb-3"
+          >
+            <h4 class="text-center">Method: Payop</h4>
+            <p class="text-center">Please complete your payment below</p>
+            <button @click="payPayop" class="btn btn-primary w-25 m-auto">
+              Pay On Payop
+            </button>
+            <div class="alert alert-info mt-3 text-center" role="alert">
+              Note: Payop may have delays regarding your payment.
             </div>
           </div>
           <div class="card p-3 mb-3">
@@ -140,76 +162,103 @@ export default {
       axios
         .get(`/api/orders/${this.$route.params.id}`)
         .then((res) => {
+          this.mounted = false;
           this.order = res.data;
-          axios
-            .get(`/api/orders/session?session=${this.order.paymentSession}`)
-            .then((response) => {
-              this.session = response.data;
-              this.orderFound = true;
 
-              if (this.session.metadata.product_id) {
-                axios
-                  .get(`/api/products/${this.session.metadata.product_id}`)
-                  .then((respo) => {
-                    this.product = respo.data;
-                  });
-              }
-
-              if (this.session.metadata.skin_id) {
-                axios
-                  .get(
-                    `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json`
-                  )
-                  .then((resp) => {
-                    var found = Object.values(resp.data).find(
-                      (skin) =>
-                        skin.id === parseInt(this.session.metadata.skin_id)
-                    );
-                    var splitted = found.loadScreenPath.split("/");
-                    found.imgPath = splitted[splitted.length - 1]
-                      .toLowerCase()
-                      .replace(".jpg", "");
-                    this.skin = found;
-                  });
-              }
-
-              if (this.session.payment_status === "paid") {
-                this.order.orderItems.forEach((item) => {
-                  axios
-                    .get(`/api/licences/${item}`)
-                    .then((respon) => {
-                      this.licences.push(respon.data);
-                    })
-                    .then(() => {
-                      this.licences.forEach((licence) => {
-                        axios
-                          .get(
-                            `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json`
-                          )
-                          .then((repss) => {
-                            var holder = [];
-                            licence.skins.forEach((skiny) => {
-                              var found = Object.values(repss.data).find(
-                                (skin) => skin.id === parseInt(skiny)
-                              );
-                              holder.push(found.name);
-                            });
-                            licence.skinList = holder;
-                          });
-                      });
-                    });
-                });
-              }
-              this.mounted = true;
-            });
+          if (this.order.paymentMethod === "stripe") {
+            axios
+              .get(`/api/orders/session?session=${this.order.paymentSession}`)
+              .then((response) => {
+                this.session = response.data;
+                this.orderFound = true;
+                this.getProduct();
+                this.getPaid();
+                this.getSkin();
+                this.mounted = true;
+              });
+          }
+          if (this.order.paymentMethod === "payop") {
+            axios
+              .get(
+                `/api/orders/payopsession?session=${this.order.paymentSession}`
+              )
+              .then((response) => {
+                this.session = response.data;
+                this.orderFound = true;
+                console.log(this.session);
+                this.getProduct();
+                this.getPaid();
+                this.getSkin();
+                this.mounted = true;
+              });
+          }
         })
         .catch(() => {
           this.orderFound = false;
           this.mounted = true;
         });
     },
+    getProduct() {
+      if (this.session.metadata.product_id) {
+        axios
+          .get(`/api/products/${this.session.metadata.product_id}`)
+          .then((respo) => {
+            this.product = respo.data;
+          });
+      }
+    },
+    getPaid() {
+      if (this.session.payment_status === "paid") {
+        this.order.orderItems.forEach((item) => {
+          axios
+            .get(`/api/licences/${item}`)
+            .then((respon) => {
+              this.licences.push(respon.data);
+            })
+            .then(() => {
+              this.licences.forEach((licence) => {
+                axios
+                  .get(
+                    `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json`
+                  )
+                  .then((repss) => {
+                    var holder = [];
+                    licence.skins.forEach((skiny) => {
+                      var found = Object.values(repss.data).find(
+                        (skin) => skin.id === parseInt(skiny)
+                      );
+                      holder.push(found.name);
+                    });
+                    licence.skinList = holder;
+                  });
+              });
+            });
+        });
+      }
+    },
+    getSkin() {
+      if (this.session.metadata.skin_id) {
+        axios
+          .get(
+            `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/skins.json`
+          )
+          .then((resp) => {
+            var found = Object.values(resp.data).find(
+              (skin) => skin.id === parseInt(this.session.metadata.skin_id)
+            );
+            var splitted = found.loadScreenPath.split("/");
+            found.imgPath = splitted[splitted.length - 1]
+              .toLowerCase()
+              .replace(".jpg", "");
+            this.skin = found;
+          });
+      }
+    },
     payStripe() {
       window.open(this.session.url, "_self");
+    },
+    payPayop() {
+      window.open(`https://checkout.payop.com/en/payment/${this.order.paymentSession}`, "_self");
     },
     skinParser: function (id) {
       var found = [];

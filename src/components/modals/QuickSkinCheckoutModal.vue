@@ -12,8 +12,15 @@
             ></button>
             <h3>Apply Coupon</h3>
             <p>Enter your coupon code here below.</p>
-            <input v-model="coupon" placeholder="Coupon" class="p-1 coupon-size" type="text" />
-            <button @click="checkCoupon" class="btn btn-primary ms-3">Apply Coupon</button>
+            <input
+              v-model="coupon"
+              placeholder="Coupon"
+              class="p-1 coupon-size"
+              type="text"
+            />
+            <button @click="checkCoupon" class="btn btn-primary ms-3">
+              Apply Coupon
+            </button>
             <hr />
             <h4 class="pb-3">{{ skin.name }} - {{ skin.region }}</h4>
             <p class="fs-5">
@@ -92,8 +99,11 @@
             <h3>Payment Methods</h3>
             <div v-if="!startPay">
               <p>click on payment method to start payment process</p>
-              <button class="btn btn-dark" @click="startPayment()">
+              <button class="btn btn-dark" @click="startPayment('stripe')">
                 <img class="img-size" src="/images/stripe.png" />
+              </button>
+              <button class="btn btn-dark mt-2" @click="startPayment('payop')">
+                <img class="img-size" src="/images/payop.png" />
               </button>
               <p class="m-0 tiny-text">
                 Klarna/Sofort payments can take up to 3 days to be processed.
@@ -159,7 +169,7 @@ export default {
       this.email = value;
       console.log(value);
     },
-    startPayment() {
+    startPayment(paymentMethod) {
       if (this.email === "") {
         return;
       }
@@ -183,6 +193,7 @@ export default {
           skin_name: this.skin.name,
           user: userId,
           coupon: this.currentCoupon,
+          paymentMethod: paymentMethod,
         })
         .then((res) => {
           window.open(res.data, "_self");

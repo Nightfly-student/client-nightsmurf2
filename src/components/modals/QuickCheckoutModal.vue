@@ -99,8 +99,11 @@
             <h3>Payment Methods</h3>
             <div v-if="!startPay">
               <p>click on payment method to start payment process</p>
-              <button class="btn btn-dark" @click="startPayment()">
+              <button class="btn btn-dark" @click="startPayment('stripe')">
                 <img class="img-size" src="/images/stripe.png" />
+              </button>
+              <button class="btn btn-dark mt-2" @click="startPayment('payop')">
+                <img class="img-size" src="/images/payop.png" />
               </button>
               <p class="m-0 tiny-text">
                 Klarna/Sofort payments can take up to 3 days to be processed.
@@ -163,7 +166,7 @@ export default {
     onChangeMail(value) {
       this.email = value;
     },
-    startPayment() {
+    startPayment(paymentMethod) {
       if (this.email === "") {
         return;
       }
@@ -186,7 +189,8 @@ export default {
           region: this.product.region,
           product_title: this.product.title,
           user: userId,
-          coupon: this.currentCoupon
+          coupon: this.currentCoupon,
+          paymentMethod: paymentMethod,
         })
         .then((res) => {
           window.open(res.data, "_self");

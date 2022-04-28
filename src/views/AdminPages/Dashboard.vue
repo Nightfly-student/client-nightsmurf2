@@ -101,6 +101,9 @@
         </div>
         <div class="col py-3">
           <div class="container-xl w-75">
+            <div v-if="home">
+              <AdminDashboard/>
+            </div>
             <div v-if="orders">
               <AdminOrder />
             </div>
@@ -129,6 +132,7 @@ import {
 import AdminOrder from "../../components/admin-components/AdminOrder.vue";
 import AdminStock from "../../components/admin-components/AdminStock.vue";
 import AdminCoupon from "../../components/admin-components/AdminCoupon.vue";
+import AdminDashboard from "../../components/admin-components/AdminDashboard.vue";
 export default {
   name: "Dashboard",
   components: {
@@ -139,7 +143,8 @@ export default {
     BIconDiagram2,
     AdminOrder,
     AdminStock,
-    AdminCoupon
+    AdminCoupon,
+    AdminDashboard    
   },
   data() {
     return {
