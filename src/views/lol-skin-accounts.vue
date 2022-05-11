@@ -21,19 +21,53 @@
       </div>
     </header>
     <div class="divider-top">
-      <SkinChampions/>
+      <SkinChampions />
     </div>
   </div>
 </template>
 
 <script>
+import { useHead } from '@vueuse/head';
 import CarouselPopular from "../components/skins-components/CarouselPopular.vue";
 import SkinChampions from "../components/skins-components/SkinChampions.vue";
+import { reactive } from '@vue/reactivity';
+import { computed } from '@vue/runtime-core';
 export default {
   name: "Skins",
   components: {
     CarouselPopular,
     SkinChampions,
+  },
+  setup() {
+    const siteData = reactive({
+      title: "Unranked Skin Accounts Starting at €5.49 - Nightsmurf",
+      description:
+        "Cheap High Quality League Of Legends Smurf Skin Accounts. Instant Delivery & Life Time Warranty",
+      image:
+        "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+    });
+
+    useHead({
+      title: computed(() => siteData.title),
+      meta: [
+        {
+          name: `description`,
+          content: computed(() => siteData.description),
+        },
+        {
+          property: "og:title",
+          content: computed(() => siteData.title),
+        },
+        {
+          property: "og:description",
+          content: computed(() => siteData.description),
+        },
+        {
+          property: "og:image",
+          content: computed(() => siteData.image),
+        },
+      ],
+    });
   },
 };
 </script>

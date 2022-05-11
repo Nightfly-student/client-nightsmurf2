@@ -38,7 +38,6 @@ export default {
       axios.get(`/api/licences/stock?region=${region}`).then((response) => {
         this.stock = response.data;
         axios.get(`/api/products/items?region=${region}`).then((res) => {
-          console.log(res.data);
           this.products = res.data.products;
           this.mounted = true;
         });

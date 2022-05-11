@@ -2,12 +2,16 @@ import { createStore } from "vuex";
 import axios from "axios";
 import { authHeader } from "./helpers/authHeader";
 
+const user = JSON.parse(localStorage.getItem("user"));
+const token = JSON.parse(localStorage.getItem("token"));
+
 const store = createStore({
   state() {
     return {
-      user: null,
-      isAuthenticated: false,
-      isAdmin: false,
+      user: user ? user : null,
+      token: token ? token : null,
+      isAuthenticated: user ? true : false,
+      isAdmin: user ? user.isAdmin : false,
     };
   },
   getters: {
@@ -27,6 +31,9 @@ const store = createStore({
       state.isAuthenticated = true;
       state.isAdmin = payload.isAdmin;
     },
+    tokenSuccesful(state, payload) {
+      state.token = payload;
+    },
     logout(state) {
       state.user = null;
       state.isAuthenticated = false;
@@ -42,8 +49,11 @@ const store = createStore({
             password: password,
           })
           .then((res) => {
-            localStorage.setItem("user", JSON.stringify(res.data));
-            commit("loginSuccesful", res.data);
+            localStorage.setItem("user", JSON.stringify(res.data.user));
+            commit("loginSuccesful", res.data.user);
+            localStorage.setItem("token", JSON.stringify(res.data.tokens));
+            commit("tokenSuccesful", res.data.tokens);
+
             resolve();
           })
           .catch((error) => {
@@ -54,22 +64,6 @@ const store = createStore({
     logout({ commit }) {
       localStorage.removeItem("user");
       commit("logout");
-    },
-    autoLogin({ commit }) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user) {
-        axios
-          .get("/api/users/autologin", {
-            headers: authHeader(),
-          })
-          .then((res) => {
-            commit("loginSuccesful", user);
-          })
-          .catch((err) => {
-            localStorage.removeItem("user");
-            commit("logout");
-          });
-      }
     },
   },
 });

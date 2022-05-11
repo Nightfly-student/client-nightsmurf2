@@ -24,28 +24,22 @@
           <p class="fs-5">Nightsmurf</p>
           <ul class="nav flex-column">
             <li class="nav-item">
-              <router-link class="nav-link" to="/contact" @click="scrollToTop"
+              <router-link class="nav-link" to="/contact"
                 >Contact Us</router-link
               >
             </li>
             <li class="nav-item">
-              <router-link
-                class="nav-link"
-                to="/terms-of-service"
-                @click="scrollToTop"
+              <router-link class="nav-link" to="/terms-of-service"
                 >Terms Of Service</router-link
               >
             </li>
             <li class="nav-item">
-              <router-link
-                class="nav-link"
-                to="/privacy-policy"
-                @click="scrollToTop"
+              <router-link class="nav-link" to="/privacy-policy"
                 >Privacy Policy</router-link
               >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/" @click="scrollToTop"
+              <router-link class="nav-link" to="/"
                 >Frequently Asked Questions</router-link
               >
             </li>
@@ -58,7 +52,6 @@
               <router-link
                 class="nav-link"
                 to="/category/league-of-legends-euw-accounts"
-                @click="scrollToTop"
                 ><svg
                   version="1.0"
                   xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +122,6 @@
               <router-link
                 class="nav-link"
                 to="/category/league-of-legends-eune-accounts"
-                @click="scrollToTop"
               >
                 <svg
                   version="1.0"
@@ -185,7 +177,6 @@
               <router-link
                 class="nav-link"
                 to="/category/league-of-legends-na-accounts"
-                @click="scrollToTop"
               >
                 <svg
                   version="1.0"
@@ -258,7 +249,6 @@
               <router-link
                 class="nav-link"
                 to="/category/league-of-legends-tr-accounts"
-                @click="scrollToTop"
               >
                 <svg
                   version="1.0"
@@ -307,7 +297,6 @@
               <router-link
                 class="nav-link"
                 to="/category/league-of-legends-oce-accounts"
-                @click="scrollToTop"
               >
                 <svg
                   version="1.0"
@@ -359,7 +348,6 @@
               <router-link
                 class="nav-link"
                 to="/category/league-of-legends-br-accounts"
-                @click="scrollToTop"
               >
                 <svg
                   version="1.0"
@@ -405,7 +393,6 @@
               <router-link
                 class="nav-link"
                 to="/category/league-of-legends-las-accounts"
-                @click="scrollToTop"
               >
                 <svg
                   version="1.0"
@@ -449,7 +436,6 @@ c3 -10 23 -27 46 -37 26 -11 41 -24 41 -35 0 -10 6 -18 13 -18 15 0 37 -37 35
               <router-link
                 class="nav-link"
                 to="/category/league-of-legends-lan-accounts"
-                @click="scrollToTop"
               >
                 <svg
                   version="1.0"
@@ -510,7 +496,6 @@ c3 -10 23 -27 46 -37 26 -11 41 -24 41 -35 0 -10 6 -18 13 -18 15 0 37 -37 35
               <router-link
                 class="nav-link"
                 to="/category/league-of-legends-ru-accounts"
-                @click="scrollToTop"
               >
                 <svg
                   version="1.0"
@@ -618,9 +603,6 @@ export default {
     },
     instagram() {
       window.open("https://www.instagram.com/nightsmurf_com/?hl=en");
-    },
-    scrollToTop() {
-      window.scrollTo(0, 0);
     },
   },
 };

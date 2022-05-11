@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
     <div class="container-xl">
       <router-link to="/" class="navbar-brand">Nightsmurf</router-link>
       <button
@@ -576,17 +576,17 @@ m38 -75 c-3 -3 -9 2 -12 12 -6 14 -5 15 5 6 7 -7 10 -15 7 -18z"
               aria-labelledby="dropdownMenuLink"
             >
               <li v-if="this.$store.getters.isAdmin">
-                <router-link class="dropdown-item" to="/dashboard"
+                <router-link class="dropdown-item" to="/admin/dashboard"
                   >Dashboard</router-link
                 >
               </li>
               <li>
-                <router-link class="dropdown-item" to="/order-history"
+                <router-link class="dropdown-item" to="/user/order-history"
                   >Order History</router-link
                 >
               </li>
               <li>
-                <router-link class="dropdown-item" to="/settings"
+                <router-link class="dropdown-item" to="/user/settings"
                   >Settings</router-link
                 >
               </li>
@@ -620,9 +620,26 @@ export default {
   data() {
     return {};
   },
+  methods: {
+    StickyNav() {
+      var nav = document.querySelector("nav");
+      var routers = document.getElementsByClassName("nav-router");
+
+      window.addEventListener("scroll", function () {
+        if (window.pageYOffset > 100) {
+          nav.classList.add("bg-dark", "shadow", "text-light");
+        } else {
+          nav.classList.remove("bg-dark", "shadow");
+        }
+      });
+    },
+  },
+  mounted() {
+    this.StickyNav();
+  },
   watch: {
     $route() {
-      document.getElementById('navbarCollapse').classList.remove('show');
+      document.getElementById("navbarCollapse").classList.remove("show");
     },
   },
 };
@@ -640,5 +657,8 @@ nav {
 }
 svg {
   margin-right: 5px;
+}
+.bg-dark {
+  background: #161616!important;
 }
 </style>

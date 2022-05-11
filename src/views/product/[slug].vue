@@ -79,7 +79,11 @@
 
 <script>
 import axios from "axios";
-import QuickCheckoutModal from "../components/modals/QuickCheckoutModal.vue";
+import QuickCheckoutModal from "../../components/modals/QuickCheckoutModal.vue";
+import { reactive } from "@vue/reactivity";
+import { useRoute } from "vue-router";
+import { useHead } from "@vueuse/head";
+import { computed } from "@vue/runtime-core";
 export default {
   name: "Product",
   components: {
@@ -116,6 +120,39 @@ export default {
   },
   created() {
     this.getProduct();
+  },
+  setup() {
+    const route = useRoute();
+    const info = route.params.slug.split("-");
+    const siteData = reactive({
+      title: `${info[0] + ' ' + info[1].toUpperCase() + ' ' + info[2].toUpperCase() + ' ' + info[3] + ' ' + info[4].toUpperCase()} - Nightsmurf`,
+      description:
+        `We Offer the cheapest ${info[0]} ${info[1].toUpperCase()} Accounts on the web. Our League Of Legends ${info[4].toUpperCase()} Smurf Accounts come with Lifetime Warranty and Instant Delivery.`,
+      image:
+        "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+    });
+
+    useHead({
+      title: computed(() => siteData.title),
+      meta: [
+        {
+          name: `description`,
+          content: computed(() => siteData.description),
+        },
+        {
+          property: "og:title",
+          content: computed(() => siteData.title),
+        },
+        {
+          property: "og:description",
+          content: computed(() => siteData.description),
+        },
+        {
+          property: "og:image",
+          content: computed(() => siteData.image),
+        },
+      ],
+    });
   },
 };
 </script>

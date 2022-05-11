@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-5">
     <div class="text-light container-xl" v-if="mounted && orderFound">
       <h1 class="pt-4">Order #{{ order._id }}</h1>
       <p>Order Status: {{ order.paymentStatus }}</p>

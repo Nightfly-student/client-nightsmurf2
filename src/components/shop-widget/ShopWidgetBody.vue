@@ -13,7 +13,7 @@
       <ShopWidgetRegion @selectedRegion="check" />
     </div>
     <div>
-      <ShopWidgetContent :products="products" :stock="stock" :home="home"/>
+      <ShopWidgetContent :products="products" :stock="stock" :home="home" />
     </div>
   </div>
 </template>
@@ -37,23 +37,29 @@ export default {
     return {
       products: [],
       stock: [],
-      selectedRegion: '',
+      selectedRegion: "",
     };
   },
   methods: {
     check(region) {
       this.selectedRegion = region;
-      axios.get(`/api/licences/stock?region=${this.selectedRegion}`).then((response) => {
-        this.stock = response.data;
-        axios.get(`/api/products/items?region=${this.selectedRegion}`).then((res) => {
-          this.products = res.data.products.sort((p, a) => p.price > a.price);
+      axios
+        .get(`/api/licences/stock?region=${this.selectedRegion}`)
+        .then((response) => {
+          this.stock = response.data;
+          axios
+            .get(`/api/products/items?region=${this.selectedRegion}`)
+            .then((res) => {
+              this.products = res.data.products.sort(
+                (p, a) => p.price > a.price
+              );
+            });
         });
-      });
     },
   },
   created() {
     this.check(this.regionI);
-  }
+  },
 };
 </script>
 

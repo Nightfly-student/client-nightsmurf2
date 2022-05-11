@@ -3,7 +3,11 @@
     <notifications width="auto" />
     <NavBar />
     <div class="wrapper">
-      <RouterView />
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </div>
     <Footer />
   </div>
@@ -17,9 +21,6 @@ export default {
     NavBar,
     Footer,
   },
-  created() {
-    this.$store.dispatch("autoLogin");
-  },
 };
 </script>
 
@@ -28,7 +29,7 @@ export default {
 
 body {
   font-family: "Fredoka", sans-serif !important;
-  background: #111111!important;
+  background: #111111 !important;
 }
 h1,
 h2,
@@ -46,5 +47,14 @@ h4 {
   font-size: 16px !important;
   color: #ffffff;
   text-align: center !important;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

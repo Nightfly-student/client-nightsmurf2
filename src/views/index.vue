@@ -1,41 +1,5 @@
 <template>
   <div>
-    <Head>
-      <title>Buy Cheap Smurf Accounts - Nightsmurf</title>
-      <meta
-        name="description"
-        content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more"
-      />
-
-      <!-- Social -->
-      <meta
-        property="og:title"
-        content="Buy Cheap Smurf Accounts - Nightsmurf"
-      />
-      <meta
-        property="og:description"
-        content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more"
-      />
-      <meta
-        property="og:image"
-        content="https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png"
-      />
-
-      <!-- Twitter -->
-      <meta
-        name="twitter:title"
-        content="Buy Cheap Smurf Accounts - Nightsmurf"
-      />
-      <meta
-        name="twitter:description"
-        content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more"
-      />
-      <meta
-        name="twitter:image"
-        content="https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png"
-      />
-      <meta name="twitter:card" content="summary_large_image" />
-    </Head>
     <header class="text-light">
       <div class="container-xl">
         <div class="row">
@@ -226,18 +190,20 @@
       <div class="divider-top container-xl text-light">
         <h2 class="text-center">Our Posts</h2>
         <p class="text-center">Learn more about League of Legends Smurfing</p>
-        <BlogCard/>
+        <BlogCard />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Head } from "@vueuse/head";
+import { Head, useHead } from "@vueuse/head";
 import ShopWidgetBody from "../components/shop-widget/ShopWidgetBody.vue";
 import QuoteBanner from "../components/banners/QuoteBanner.vue";
 import HeroBoxes from "../components/boxes/HeroBoxes.vue";
 import BlogCard from "../components/blog-components/BlogCard.vue";
+import { reactive } from "@vue/reactivity";
+import { computed } from "@vue/runtime-core";
 
 export default {
   name: "Home",
@@ -245,7 +211,37 @@ export default {
     ShopWidgetBody,
     QuoteBanner,
     HeroBoxes,
-    BlogCard
+    BlogCard,
+  },
+  setup() {
+    const siteData = reactive({
+      title: `Cheapest Smurf Accounts Only €3.99 - Nightsmurf`,
+      description:
+        "We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more",
+      image: "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png"
+    });
+
+    useHead({
+      title: computed(() => siteData.title),
+      meta: [
+        {
+          name: `description`,
+          content: computed(() => siteData.description),
+        },
+        {
+          property: "og:title",
+          content: computed(() => siteData.title),
+        },
+        {
+          property: "og:description",
+          content: computed(() => siteData.description),
+        },
+        {
+          property: "og:image",
+          content: computed(() => siteData.image),
+        },
+      ],
+    });
   },
 };
 </script>

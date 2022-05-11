@@ -1,12 +1,14 @@
 <template>
-  <div v-if="mounted" class="row justify-content-center">
-    <SkinOfChampion
-      v-for="championSkin in championSkins"
-      :key="championSkin.id"
-      :championSkin="championSkin"
-      :champion="champion"
-    />
-  </div>
+  <transition tag="div" name="fade" mode="out-in">
+    <div v-if="mounted" class="row justify-content-center">
+      <SkinOfChampion
+        v-for="championSkin in championSkins"
+        :key="championSkin.id"
+        :championSkin="championSkin"
+        :champion="champion"
+      />
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -78,4 +80,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s ease!important;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

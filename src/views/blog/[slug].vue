@@ -17,8 +17,11 @@
 </template>
 
 <script>
-import { Head } from "@vueuse/head";
+import { Head, useHead } from "@vueuse/head";
 import axios from "axios";
+import { reactive } from "@vue/reactivity";
+import { computed } from "@vue/runtime-core";
+import { useRoute } from "vue-router";
 export default {
   name: "BlogItem",
   data() {
@@ -37,6 +40,27 @@ export default {
   },
   mounted() {
     this.getBlogPost();
+  },
+  setup() {
+    const route = useRoute();
+    const siteData = reactive({
+      title: `${route.params.slug.replaceAll("-", " ")} - Nightsmurf`,
+      image:
+        "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+    });
+    useHead({
+      title: computed(() => siteData.title),
+      meta: [
+        {
+          property: "og:title",
+          content: computed(() => siteData.title),
+        },
+        {
+          property: "og:image",
+          content: computed(() => siteData.image),
+        },
+      ],
+    });
   },
 };
 </script>

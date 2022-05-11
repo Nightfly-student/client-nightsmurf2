@@ -13,29 +13,33 @@
       <meta
         property="og:title"
         :content="
-          $route.params.category.replaceAll('-', ' ') +
-          ' - Nightsmurf '
+          $route.params.category.replaceAll('-', ' ') + ' - Nightsmurf '
         "
       />
       <meta
         property="og:description"
         content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more"
       />
-      <meta property="og:image" content="https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png" />
-      
+      <meta
+        property="og:image"
+        content="https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png"
+      />
+
       <!-- Twitter -->
       <meta
         name="twitter:title"
         :content="
-          $route.params.category.replaceAll('-', ' ') +
-          ' - Nightsmurf '
+          $route.params.category.replaceAll('-', ' ') + ' - Nightsmurf '
         "
       />
       <meta
         name="twitter:description"
         content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more"
       />
-      <meta name="twitter:image" content="https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png" />
+      <meta
+        name="twitter:image"
+        content="https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png"
+      />
       <meta name="twitter:card" content="summary_large_image" />
     </Head>
     <header class="text-light">
@@ -57,9 +61,11 @@
 </template>
 
 <script>
-import { Head } from "@vueuse/head";
-import ChangeRegion from "../components/category-components/ChangeRegion.vue";
-import CategoryWidgetContent from "../components/category-components/CategoryWidgetContent.vue";
+import { useHead } from "@vueuse/head";
+import ChangeRegion from "../../components/category-components/ChangeRegion.vue";
+import CategoryWidgetContent from "../../components/category-components/CategoryWidgetContent.vue";
+import { reactive } from '@vue/reactivity';
+import { computed } from '@vue/runtime-core';
 export default {
   name: "Category",
   components: {
@@ -88,6 +94,37 @@ export default {
         this.mounty();
       }
     },
+  },
+  setup() {
+    const siteData = reactive({
+      title: `League Of Legends Accounts - Nightsmurf`,
+      description:
+        "League Of Legends Smurf Accounts, Unranked, Fresh & Instant Delivery. We Offer 40k, 50k, 60k For EUW, EUNE, NA, TR, OCE, BR, LAS, LAN, RU",
+      image:
+        "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+    });
+
+    useHead({
+      title: computed(() => siteData.title),
+      meta: [
+        {
+          name: `description`,
+          content: computed(() => siteData.description),
+        },
+        {
+          property: "og:title",
+          content: computed(() => siteData.title),
+        },
+        {
+          property: "og:description",
+          content: computed(() => siteData.description),
+        },
+        {
+          property: "og:image",
+          content: computed(() => siteData.image),
+        },
+      ],
+    });
   },
 };
 </script>
