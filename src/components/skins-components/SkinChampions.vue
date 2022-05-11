@@ -63,7 +63,7 @@ export default {
   methods: {
     getVersion() {
       axios
-        .get("https://ddragon.leagueoflegends.com/api/versions.json")
+        .get("https://ddragon.leagueoflegends.com/api/versions.json", )
         .then((res) => {
           this.version = res.data[0];
           this.getChampions();
