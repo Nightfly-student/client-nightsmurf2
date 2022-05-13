@@ -1,15 +1,22 @@
 <template>
   <div>
     <h1 class="text-center text-light">Orders</h1>
-    <select
-      class="form-select bg-dark text-light w-25 float-end my-2"
-      aria-label="Default select example"
-      @change="sort($event.target.value)"
-    >
-      <option selected value="1">Completed</option>
-      <option value="2">Pending</option>
-      <option value="3">All</option>
-    </select>
+    <div class="row">
+      <div class="col">
+        <p class="text-white">Total Orders: {{ total }}</p>
+      </div>
+      <div class="col">
+        <select
+          class="form-select bg-dark text-light w-25 float-end my-2"
+          aria-label="Default select example"
+          @change="sort($event.target.value)"
+        >
+          <option selected value="1">Completed</option>
+          <option value="2">Pending</option>
+          <option value="3">All</option>
+        </select>
+      </div>
+    </div>
     <div class="overflow-auto w-100">
       <table class="table table-dark">
         <thead>
@@ -28,15 +35,16 @@
             <th class="align-middle" scope="row">{{ order._id }}</th>
             <td class="align-middle">{{ order.email }}</td>
             <td class="align-middle">&euro;{{ order.total }}</td>
-            <TimeFormatTable :order="order"/>
+            <TimeFormatTable :order="order" />
             <td class="align-middle">{{ order.paymentMethod }}</td>
             <td class="align-middle">{{ order.paymentStatus }}</td>
             <td class="align-middle">
-              <button class="btn btn-primary">Info</button>
+              <router-link :to="`/order/${order._id}`"  class="btn btn-primary">Info</router-link>
             </td>
           </tr>
         </tbody>
       </table>
+      <button @click="getOrders" class="btn btn-primary">Load More</button>
     </div>
   </div>
 </template>
@@ -54,15 +62,26 @@ export default {
     return {
       orders: [],
       holdOrders: [],
+      total: 0,
+      limit: 20,
+      page: 0,
     };
   },
   methods: {
     getOrders() {
+      this.page++;
       axios
-        .get("/api/orders/", { headers: authHeader() })
+        .get(`/api/orders/?limit=${this.limit}&page=${this.page}`, {
+          headers: authHeader(),
+        })
         .then((res) => {
-          this.holdOrders = res.data;
-          this.orders = res.data.filter(
+          res.data.docs.forEach((doc) => {
+            this.holdOrders.push(doc);
+          });
+
+          this.total = res.data.total;
+          console.log(this.holdOrders);
+          this.orders = this.holdOrders.filter(
             (order) => order.paymentStatus === "completed"
           );
         })

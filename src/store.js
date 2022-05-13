@@ -63,6 +63,7 @@ const store = createStore({
     },
     logout({ commit }) {
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
       commit("logout");
     },
   },

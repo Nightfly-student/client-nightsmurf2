@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="container-fluid">
-      <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+      <div class="row flex-nowrap mt-5 pt-5">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 mt-top">
           <div
             class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
           >
@@ -186,10 +186,10 @@ export default {
 .activeLink:hover {
   color: #307cee !important;
 }
-.bg-dark {
-  background: #161616 !important;
-}
 .w-75 {
-  width: 95%!important;
+  width: 100%!important;
+}
+.mt-top {
+  padding-top: 150px;
 }
 </style>

@@ -49,14 +49,11 @@ export default defineConfig({
           };
         }
       },
-      // onRoutesGenerated: async (routes) => {
-      //   const products = await axios.get("/api/products/");
-      //   const dynamicRoutes = products.map(
-      //     (product) => `/product/${product.slug}`
-      //   );
-      //   console.log(dynamicRoutes);
-      //   generateSitemap(routes, [...routes, ...dynamicRoutes]);
-      // },
+      onRoutesGenerated: async (routes) => {
+        generateSitemap({
+          routes: [...routes],
+        });
+      },
     }),
   ],
   resolve: {
