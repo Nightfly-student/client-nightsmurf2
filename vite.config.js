@@ -50,8 +50,14 @@ export default defineConfig({
         }
       },
       onRoutesGenerated: async (routes) => {
+        const products = await axios.get("http://localhost:8080/api/products/");
+        const dynamicRoutes = products.data.map(
+          (product) => `/product/${product.slug}`
+        );
+        const blogs = await axios.get("http://localhost:8080/api/blogs/");
+        const dynamicBlogs = blogs.data.map((blog) => `/blog/${blog.slug}`);
         generateSitemap({
-          routes: [...routes],
+          routes: [...routes, ...dynamicRoutes, ...dynamicBlogs],
           hostname: "https://nightsmurf.com/",
         });
       },
