@@ -52,6 +52,7 @@ export default defineConfig({
       onRoutesGenerated: async (routes) => {
         generateSitemap({
           routes: [...routes],
+          hostname: "https://nightsmurf.com/",
         });
       },
     }),
