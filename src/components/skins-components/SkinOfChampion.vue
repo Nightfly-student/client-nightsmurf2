@@ -40,8 +40,19 @@
         <hr />
         <div class="card-text">
           <div class="my-3">
-            <BIconPiggyBank class="fs-4 me-2 text-primary" /> Price:
-            <strong class="float-end me-4">&euro;{{ price }}</strong>
+
+            <div v-if="!royalty.active">
+              <BIconPiggyBank class="fs-4 me-2 text-primary" /> Price:
+              <strong class="float-end me-4"
+                >&euro;{{ price.toFixed(2) }}</strong
+              >
+            </div>
+            <div v-else>
+              <BIconPiggyBank class="fs-4 me-2 text-primary" /> Loyalty Price:
+              <strong class="float-end me-4"
+                >&euro;{{ price.toFixed(2) }}</strong
+              >
+            </div>
           </div>
           <div class="my-3">
             <BIconGem class="fs-4 me-2 text-primary" /> Blue Essence:
@@ -82,6 +93,7 @@ export default {
   props: {
     champion: Object,
     championSkin: Object,
+    royalty: Object,
   },
   components: {
     BIconPiggyBank,
@@ -130,6 +142,11 @@ export default {
       }
       if (this.championSkin.rarity === "kUltimate") {
         this.price = 9.49;
+      }
+      if (this.$store.getters.isLogged) {
+        var priceHolder = this.price;
+        var discount = (priceHolder / 100) * this.royalty.discount;
+        this.price = priceHolder - discount;
       }
       this.mounted = true;
     },

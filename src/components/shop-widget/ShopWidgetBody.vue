@@ -13,7 +13,13 @@
       <ShopWidgetRegion @selectedRegion="check" />
     </div>
     <div>
-      <ShopWidgetContent :products="products" :stock="stock" :home="home" />
+      <ShopWidgetContent
+        v-if="mounted"
+        :products="products"
+        :stock="stock"
+        :home="home"
+        :royalty="royalty"
+      />
     </div>
   </div>
 </template>
@@ -38,6 +44,7 @@ export default {
       products: [],
       stock: [],
       selectedRegion: "",
+      mounted: false,
     };
   },
   methods: {
@@ -53,8 +60,27 @@ export default {
               this.products = res.data.products.sort(
                 (p, a) => p.price > a.price
               );
+              if (this.$store.getters.isLogged) {
+                this.getRoyalty();
+              } else {
+                this.royalty = {
+                  active: false,
+                };
+                this.mounted = true;
+              }
             });
         });
+    },
+    getRoyalty() {
+      axios.get(`/api/royalty/${this.$store.getters.getId}`).then((res) => {
+        this.royalty = res.data;
+        this.products.forEach((product) => {
+          var priceHolder = product.price;
+          var discount = (priceHolder / 100) * this.royalty.discount;
+          product.price = priceHolder - discount;
+        });
+        this.mounted = true;
+      });
     },
   },
   created() {

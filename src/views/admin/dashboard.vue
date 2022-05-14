@@ -70,17 +70,17 @@
                       @click="onClick('coupons')"
                       :class="{ activeLink: coupons }"
                     >
-                      <span class="d-none d-sm-inline">Coupons</span> 1</a
+                      <span class="d-none d-sm-inline">Coupons</span></a
                     >
                   </li>
                   <li>
                     <a
                       href="#"
                       class="nav-link px-0"
-                      @click="onClick('addProduct')"
-                      :class="{ activeLink: addProduct }"
+                      @click="onClick('loyalty')"
+                      :class="{ activeLink: loyalty }"
                     >
-                      <span class="d-none d-sm-inline">Add Product</span> 2</a
+                      <span class="d-none d-sm-inline">Loyalty</span></a
                     >
                   </li>
                 </ul>
@@ -102,7 +102,7 @@
         <div class="col py-3">
           <div class="container-xl w-75">
             <div v-if="home">
-              <AdminDashboard/>
+              <AdminDashboard />
             </div>
             <div v-if="orders">
               <AdminOrder />
@@ -111,7 +111,10 @@
               <AdminStock />
             </div>
             <div v-if="coupons">
-              <AdminCoupon/>
+              <AdminCoupon />
+            </div>
+            <div v-if="loyalty">
+              <AdminLoyalty />
             </div>
           </div>
         </div>
@@ -133,6 +136,7 @@ import AdminOrder from "../../components/admin-components/AdminOrder.vue";
 import AdminStock from "../../components/admin-components/AdminStock.vue";
 import AdminCoupon from "../../components/admin-components/AdminCoupon.vue";
 import AdminDashboard from "../../components/admin-components/AdminDashboard.vue";
+import AdminLoyalty from "../../components/admin-components/AdminLoyalty.vue";
 export default {
   name: "Dashboard",
   components: {
@@ -144,7 +148,8 @@ export default {
     AdminOrder,
     AdminStock,
     AdminCoupon,
-    AdminDashboard    
+    AdminDashboard,
+    AdminLoyalty
   },
   data() {
     return {
@@ -153,7 +158,7 @@ export default {
       stock: false,
       products: false,
       coupons: false,
-      addProduct: false,
+      loyalty: false,
       customers: false,
     };
   },
@@ -164,7 +169,7 @@ export default {
       this.stock = false;
       this.products = false;
       this.coupons = false;
-      this.addProduct = false;
+      this.loyalty = false;
       this.customers = false;
 
       this[value] = true;
@@ -187,7 +192,7 @@ export default {
   color: #307cee !important;
 }
 .w-75 {
-  width: 100%!important;
+  width: 100% !important;
 }
 .mt-top {
   padding-top: 150px;

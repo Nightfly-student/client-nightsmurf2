@@ -35,10 +35,18 @@
       <hr />
       <div class="card-text">
         <div class="my-3">
-          <BIconPiggyBank class="fs-4 me-2 text-primary" /> Price:
-          <strong class="float-end me-4"
-            >&euro;{{ product.price.toFixed(2) }}</strong
-          >
+          <div v-if="!royalty.active">
+            <BIconPiggyBank class="fs-4 me-2 text-primary" /> Price:
+            <strong class="float-end me-4"
+              >&euro;{{ product.price.toFixed(2) }}</strong
+            >
+          </div>
+          <div v-else>
+            <BIconPiggyBank class="fs-4 me-2 text-primary" /> Loyalty Price:
+            <strong class="float-end me-4"
+              >&euro;{{ product.price.toFixed(2) }}</strong
+            >
+          </div>
         </div>
         <div class="my-3">
           <BIconGem class="fs-4 me-2 text-primary" /> Blue Essence:
@@ -62,6 +70,7 @@
 
 <script>
 import QuickCheckoutModal from "../modals/QuickCheckoutModal.vue";
+import axios from "axios";
 import {
   BIconPiggyBank,
   BIconGem,
@@ -81,6 +90,7 @@ export default {
     product: Object,
     stock: Number,
     home: Boolean,
+    royalty: Object,
   },
 };
 </script>

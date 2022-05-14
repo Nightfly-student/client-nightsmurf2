@@ -6,6 +6,7 @@
         :key="championSkin.id"
         :championSkin="championSkin"
         :champion="champion"
+        :royalty="royalty"
       />
     </div>
   </transition>
@@ -28,6 +29,7 @@ export default {
     return {
       championSkins: [],
       mounted: false,
+      royalty: {},
     };
   },
   methods: {
@@ -61,11 +63,24 @@ export default {
           this.championSkins = found;
         });
     },
+    getRoyalty() {
+      axios.get(`/api/royalty/${this.$store.getters.getId}`).then((res) => {
+        this.royalty = res.data;
+        this.mounted = true;
+      });
+    },
   },
   mounted() {
     this.mounted = false;
     this.getSkins();
-    this.mounted = true;
+    if (this.$store.getters.isLogged) {
+      this.getRoyalty();
+    } else {
+      this.royalty = {
+        active: false,
+      }
+      this.mounted = true;
+    }
   },
   watch: {
     $route(to, from) {
@@ -83,7 +98,7 @@ export default {
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 1s ease!important;
+  transition: opacity 1s ease !important;
 }
 
 .fade-enter-from,

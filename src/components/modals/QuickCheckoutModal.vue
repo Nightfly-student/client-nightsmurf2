@@ -149,6 +149,7 @@ export default {
       coupon: "",
       priceHolder: this.product.price,
       currentCoupon: "",
+      royalty: {},
     };
   },
   methods: {
@@ -203,7 +204,6 @@ export default {
           if (res.data.discount === "%") {
             var discount = (this.priceHolder / 100) * res.data.portion;
             this.product.price = this.priceHolder - discount;
-            console.log("hi");
           }
           if (res.data.discount === "A") {
             this.product.price = this.priceHolder - res.data.portion;
