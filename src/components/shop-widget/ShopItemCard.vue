@@ -35,14 +35,14 @@
       <hr />
       <div class="card-text">
         <div class="my-3">
-          <div v-if="!royalty.active">
-            <BIconPiggyBank class="fs-4 me-2 text-primary" /> Price:
+          <div v-if="royalty && royalty.active">
+            <BIconPiggyBank class="fs-4 me-2 text-primary" /> Loyalty Price:
             <strong class="float-end me-4"
               >&euro;{{ product.price.toFixed(2) }}</strong
             >
           </div>
           <div v-else>
-            <BIconPiggyBank class="fs-4 me-2 text-primary" /> Loyalty Price:
+            <BIconPiggyBank class="fs-4 me-2 text-primary" /> Price:
             <strong class="float-end me-4"
               >&euro;{{ product.price.toFixed(2) }}</strong
             >

@@ -550,8 +550,10 @@ m38 -75 c-3 -3 -9 2 -12 12 -6 14 -5 15 5 6 7 -7 10 -15 7 -18z"
           <router-link class="nav-item nav-link" to="/lol-skin-accounts"
             >LoL Skin Accounts</router-link
           >
+          <router-link class="nav-item nav-link" to="/loyalty"
+            >Loyalty Program</router-link
+          >
           <router-link class="nav-item nav-link" to="/blog">Blog</router-link>
-          <router-link class="nav-item nav-link" to="/loyalty">Loyalty Program</router-link>
         </div>
         <div class="navbar-nav ms-auto">
           <router-link
