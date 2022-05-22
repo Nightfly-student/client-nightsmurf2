@@ -21,6 +21,23 @@
             />
           </div>
         </div>
+        <div
+          class="trustpilot-widget"
+          data-locale="en-US"
+          data-template-id="5419b6a8b0d04a076446a9ad"
+          data-businessunit-id="60929b432ebaea0001d71961"
+          data-style-height="24px"
+          data-style-width="100%"
+          data-theme="dark"
+          data-min-review-count="10"
+        >
+          <a
+            href="https://www.trustpilot.com/review/nightsmurf.com"
+            target="_blank"
+            rel="noopener"
+            >Trustpilot</a
+          >
+        </div>
       </div>
     </header>
     <div class="content-wrapper divider-top">
@@ -218,7 +235,8 @@ export default {
       title: `Cheapest Smurf Accounts Only €3.99 - Nightsmurf`,
       description:
         "We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more",
-      image: "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png"
+      image:
+        "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
     });
 
     useHead({

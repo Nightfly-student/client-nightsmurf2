@@ -8,7 +8,7 @@
           <h4 class="text-primary">Order Information</h4>
           <div class="card p-3 mb-3">
             <h4 class="text-center">Need Help?</h4>
-            <p class="text-center">Join our Discord server for 24/7 support</p>
+            <p class="text-center">Join our <a href="https://discord.gg/yQ82SJHcU4" class="text-decoration-none">Discord server</a> for 24/7 support</p>
           </div>
           <div
             v-if="session.payment_status === 'paid' || session.status === '1'"
@@ -120,6 +120,14 @@
             <div v-if="session.metadata.product_id">
               <p>{{ product.body }}</p>
             </div>
+          </div>
+          <div class="card p-3 mt-3">
+            <h3 class="text-center">Review Us</h3>
+            <p class="text-center">
+              If you review us on Trustpilot, please contact us through <a href="https://discord.gg/yQ82SJHcU4">Discord</a>
+              and recieve a 50% discount for your next order.
+            </p>
+            <a type="button" class="btn btn-primary" href="https://trustpilot.com/review/nightsmurf.com" target="_blank">Review Us Now</a>
           </div>
         </div>
       </div>
@@ -258,7 +266,10 @@ export default {
       window.open(this.session.url, "_self");
     },
     payPayop() {
-      window.open(`https://checkout.payop.com/en/payment/${this.order.paymentSession}`, "_self");
+      window.open(
+        `https://checkout.payop.com/en/payment/${this.order.paymentSession}`,
+        "_self"
+      );
     },
     skinParser: function (id) {
       var found = [];

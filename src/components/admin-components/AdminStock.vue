@@ -26,7 +26,11 @@
     <div>
       <div class="text-center">
         <h2 class="text-light">Import Accounts</h2>
-        <textarea v-model="importAccounts" class="w-75 height" placeholder="# Format: [REGION]:[USERNAME]:[PASSWORD]:[LEVEL]:[BLUEESSENCE]:[ORANGEESSENCE]:[CHAMPIONS]:[SKINSHARDS]"></textarea>
+        <textarea
+          v-model="importAccounts"
+          class="w-75 height"
+          placeholder="# Format: [REGION]:[USERNAME]:[PASSWORD]:[LEVEL]:[BLUEESSENCE]:[ORANGEESSENCE]:[CHAMPIONS]:[SKINSHARDS]"
+        ></textarea>
         <br />
         <button @click="importStock" class="btn btn-primary mt-2">
           Import Accounts
@@ -69,11 +73,15 @@ export default {
           lines.forEach((lines) => {
             var stock = lines.split(":");
             var skins = [];
+            if(stock[8]) {
+              stock[7] = stock[7] + ":" +  stock[8];
+            }
             stock[7].split("_").forEach((skin) => {
               if (skin != "0") {
                 var item = skin.replace(/ *\([^)]*\) */g, "");
-                var found = Object.values(res.data).find((skinObject) =>
-                  skinObject.name.includes(item)
+                var found = Object.values(res.data).find(
+                  (skinObject) =>
+                    skinObject.name.toLowerCase() === item.toLowerCase()
                 );
                 skins.push(found.id);
               }
@@ -84,17 +92,16 @@ export default {
               password: stock[2],
               licenceType: parseInt(stock[4].toString().substr(0, 1) + "0"),
               skins: skins,
-              status: 'available',
+              status: "available",
             };
             accounts.push(data);
           });
-          console.log(accounts);
           axios.post('/api/licences/import', {accounts: accounts}, {headers: authHeader()}).then((res) => {
-          alert("Imported "  + accounts.length + " Accounts") 
+          alert("Imported "  + accounts.length + " Accounts")
           }).catch((err) => {
-            alert("Failed"); 
+            alert("Failed");
           })
-          this.importAccounts = '';
+          this.importAccounts = "";
         });
     },
   },
