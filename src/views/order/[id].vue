@@ -284,10 +284,15 @@ export default {
         });
       return found.name;
     },
+    track() {
+      this.$gtag.pageview("/order")
+    }
   },
   mounted() {
     this.orderExist();
+    this.track();
   },
+
 };
 </script>
 
