@@ -8,7 +8,15 @@
           <h4 class="text-primary">Order Information</h4>
           <div class="card p-3 mb-3">
             <h4 class="text-center">Need Help?</h4>
-            <p class="text-center">Join our <a href="https://discord.gg/yQ82SJHcU4" class="text-decoration-none">Discord server</a> for 24/7 support</p>
+            <p class="text-center">
+              Join our
+              <a
+                href="https://discord.gg/yQ82SJHcU4"
+                class="text-decoration-none"
+                >Discord server</a
+              >
+              for 24/7 support
+            </p>
           </div>
           <div
             v-if="session.payment_status === 'paid' || session.status === '1'"
@@ -48,7 +56,8 @@
           <div
             v-if="
               session.payment_status != 'paid' &&
-              order.paymentMethod === 'stripe'
+              order.paymentMethod === 'stripe' &&
+              order.paymentStatus != 'processing'
             "
             class="card p-3 mb-3"
           >
@@ -60,6 +69,15 @@
             <div class="alert alert-info mt-3 text-center" role="alert">
               Note: If you paid using Sofort it can take 1-3 days for the funds
               to arrive to Nightsmurf.
+            </div>
+          </div>
+          <div
+            v-if="order.paymentStatus === 'processing'"
+            class="card p-3 mb-3"
+          >
+            <h4 class="text-center">Payment Processing</h4>
+            <div class="alert alert-info mt-3 text-center" role="alert">
+              Processing... Klarna, Sofort payments can take up to 3 days to process. Please watch your email.
             </div>
           </div>
           <div
@@ -124,10 +142,17 @@
           <div class="card p-3 mt-3">
             <h3 class="text-center">Review Us</h3>
             <p class="text-center">
-              If you review us on Trustpilot, please contact us through <a href="https://discord.gg/yQ82SJHcU4">Discord</a>
+              If you review us on Trustpilot, please contact us through
+              <a href="https://discord.gg/yQ82SJHcU4">Discord</a>
               and recieve a 50% discount for your next order.
             </p>
-            <a type="button" class="btn btn-primary" href="https://trustpilot.com/review/nightsmurf.com" target="_blank">Review Us Now</a>
+            <a
+              type="button"
+              class="btn btn-primary"
+              href="https://trustpilot.com/review/nightsmurf.com"
+              target="_blank"
+              >Review Us Now</a
+            >
           </div>
         </div>
       </div>
@@ -285,14 +310,13 @@ export default {
       return found.name;
     },
     track() {
-      this.$gtag.pageview("/order")
-    }
+      this.$gtag.pageview("/order");
+    },
   },
   mounted() {
     this.orderExist();
     this.track();
   },
-
 };
 </script>
 
