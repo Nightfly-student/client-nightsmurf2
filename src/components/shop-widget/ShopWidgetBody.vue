@@ -12,7 +12,7 @@
     <div>
       <ShopWidgetRegion @selectedRegion="check" />
     </div>
-    <div>
+    <div id="shop_widget">
       <ShopWidgetContent
         v-if="mounted"
         :products="products"
@@ -28,6 +28,9 @@
 import ShopWidgetRegion from "./ShopWidgetRegion.vue";
 import ShopWidgetContent from "./ShopWidgetContent.vue";
 import axios from "axios";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 export default {
   name: "ShopWidgetBody",
@@ -38,6 +41,23 @@ export default {
   props: {
     regionI: String,
     home: Boolean,
+  },
+  mounted() {
+    gsap.fromTo(
+      "#shop_widget",
+      {
+        opacity: 0,
+      },
+      {
+        duration: 1.0,
+        opacity: 1,
+        scrollTrigger: {
+          trigger: "#shop_widget",
+          start: "top center", // [trigger] [scroller] positions
+          end: "20px 80%",
+        },
+      }
+    );
   },
   data() {
     return {

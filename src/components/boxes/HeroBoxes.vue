@@ -1,8 +1,8 @@
 <template>
   <div class="container-xl">
-    <div class="row text-light justify-content-center">
-      <div class="col-12 col-lg-4">
-        <div class="card m-2 mt-4  p-2 Regular shadow">
+    <div class="row text-light justify-content-center hero_container">
+      <div class="col-12 col-lg-4 hero_box">
+        <div class="card m-2 mt-4 p-2 Regular shadow">
           <BIconTrophy class="text-center fs-1 m-auto mt-3 mb-3" />
           <h2 class="card-title text-center">Ranked Ready</h2>
           <p class="card-body text-center">
@@ -11,7 +11,7 @@
           </p>
         </div>
       </div>
-      <div class="col-12 col-lg-4">
+      <div class="col-12 col-lg-4 hero_box">
         <div class="card m-2 p-2 Regular shadow">
           <BIconClockHistory class="text-center fs-1 m-auto mt-3 mb-3" />
           <h2 class="card-title text-center">Instant Delivery</h2>
@@ -21,7 +21,7 @@
           </p>
         </div>
       </div>
-      <div class="col-12 col-lg-4">
+      <div class="col-12 col-lg-4 hero_box">
         <div class="card m-2 mt-4 p-2 Regular shadow">
           <BIconShieldCheck class="text-center fs-1 m-auto mt-3 mb-3" />
           <h2 class="card-title text-center">Lifetime Warranty</h2>
@@ -36,13 +36,47 @@
 </template>
 
 <script>
-import { BIconTrophy, BIconClockHistory, BIconShieldCheck } from "bootstrap-icons-vue";
+import {
+  BIconTrophy,
+  BIconClockHistory,
+  BIconShieldCheck,
+} from "bootstrap-icons-vue";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
 export default {
   name: "HeroBoxes",
   components: {
     BIconTrophy,
     BIconClockHistory,
-    BIconShieldCheck
+    BIconShieldCheck,
+  },
+  mounted() {
+    var containers = gsap.utils.toArray(".hero_container");
+
+    containers.forEach(function (container) {
+      gsap.fromTo(
+        container.querySelectorAll(".hero_box"),
+        {
+          opacity: 0,
+          ease: "power1",
+        },
+        {
+          duration: 1,
+          ease: "power1",
+          stagger: 0.2,
+          opacity: 1,
+          scrollTrigger: {
+            trigger: container,
+            scrub: true,
+            start: "top 25%",
+            end: "bottom 20%",
+            immediateRender: false,
+          },
+        }
+      );
+    });
   },
 };
 </script>
@@ -54,6 +88,6 @@ export default {
   border-radius: 10px;
 }
 .card:hover {
-    transform: scale(1.10);
+  transform: scale(1.1);
 }
 </style>

@@ -4,17 +4,25 @@
       <div class="container-xl">
         <div class="row">
           <div class="col-xl-6 col-sm-12 col-12">
-            <h1 class="pt-3">Buy League Of Legends Unranked Accounts</h1>
-            <p class="">
+            <h1 id="header_title" class="pt-3">
+              Buy League Of Legends Unranked Accounts
+            </h1>
+            <p id="header_text" class="">
               Looking to buy a lol smurf account? We got unranked account in
               stock for EUW, EUNE, NA, TR and OCE.
             </p>
-            <a href="#shop" role="button" class="btn btn-primary p-2 px-3 fs-5">
+            <a
+              id="header_button"
+              href="#shop"
+              role="button"
+              class="btn btn-primary p-2 px-3 fs-5"
+            >
               Buy Unranked Smurf
             </a>
           </div>
           <div class="col-sm-6 col-0 d-none d-xl-block">
             <img
+              id="header_image"
               class="img-fluid w-full"
               src="/images/yi_header.png"
               alt="Cosmic Master Yi"
@@ -54,7 +62,7 @@
         <div
           class="row align-items-center justify-content-md-center text-light"
         >
-          <div class="col-12 col-md-8 col-lg-7 mb-5">
+          <div class="col-12 col-md-8 col-lg-7 mb-5 text_box">
             <h6 class="text-primary">Fast</h6>
             <h2>Why should you buy a smurf account?</h2>
             <p class="fs-5">
@@ -70,7 +78,7 @@
         <div
           class="row align-items-center justify-content-md-center text-light"
         >
-          <div class="col-12 col-md-8 col-lg-7 mb-5">
+          <div class="col-12 col-md-8 col-lg-7 mb-5 text_box">
             <h6 class="text-primary">Cheap Smurf</h6>
             <h2>Why would you want a smurf account?</h2>
             <p class="fs-5">
@@ -104,7 +112,7 @@
         <div
           class="row align-items-center justify-content-md-center text-light"
         >
-          <div class="col-12 col-md-8 col-lg-7 mb-5">
+          <div class="col-12 col-md-8 col-lg-7 mb-5 text_box">
             <h6 class="text-primary">Now</h6>
             <h2>Get your account</h2>
             <p class="fs-5">
@@ -179,7 +187,7 @@
         <div
           class="row align-items-center justify-content-md-center text-light"
         >
-          <div class="col-12 col-md-8 col-lg-7 mb-5">
+          <div class="col-12 col-md-8 col-lg-7 mb-5 text_box">
             <h6 class="text-primary">Our League of legends Smurf Accounts</h6>
             <h2>Why should you buy from us?</h2>
             <p class="fs-5">
@@ -221,6 +229,9 @@ import HeroBoxes from "../components/boxes/HeroBoxes.vue";
 import BlogCard from "../components/blog-components/BlogCard.vue";
 import { reactive } from "@vue/reactivity";
 import { computed } from "@vue/runtime-core";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 export default {
   name: "Home",
@@ -229,6 +240,85 @@ export default {
     QuoteBanner,
     HeroBoxes,
     BlogCard,
+  },
+  mounted() {
+    gsap.fromTo(
+      "#header_title",
+      {
+        opacity: 0,
+        x: "-100%",
+      },
+      {
+        duration: 1.5,
+        opacity: 1,
+        x: 0,
+      }
+    );
+    gsap.fromTo(
+      "#header_text",
+      {
+        opacity: 0,
+        x: "-100%",
+      },
+      {
+        duration: 1.5,
+        opacity: 1,
+        x: 0,
+        ease: "power3.inOut",
+        delay: 0.5,
+      }
+    );
+    gsap.fromTo(
+      "#header_button",
+      {
+        opacity: 0,
+        y: "100%",
+      },
+      {
+        duration: 1.5,
+        opacity: 1,
+        y: 0,
+        delay: 1.3,
+        ease: "power3.inOut",
+        stagger: 0.1,
+      }
+    );
+    gsap.fromTo(
+      "#header_image",
+      {
+        y: "-=15",
+        ease: "sine",
+      },
+      {
+        y: "+=15",
+        ease: "sine",
+        repeat: -1,
+        yoyo: true,
+        duration: 0.8,
+      }
+    );
+    var containers = gsap.utils.toArray(".text_box");
+
+    containers.forEach(function (container) {
+      gsap.fromTo(
+        container,
+        {
+          opacity: 0,
+          ease: "sine",
+        },
+        {
+          opacity: 1,
+          ease: "sine",
+          duration: 6.8,
+          scrollTrigger: {
+            trigger: container,
+            scrub: true,
+            start: "top 20%",
+            end: "bottom",
+          },
+        }
+      );
+    });
   },
   setup() {
     const siteData = reactive({
