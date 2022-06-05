@@ -313,7 +313,7 @@ export default {
           scrollTrigger: {
             trigger: container,
             scrub: true,
-            start: "top 20%",
+            start: "top 60%",
             end: "bottom",
           },
         }

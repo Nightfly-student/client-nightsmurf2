@@ -102,9 +102,9 @@
               <button class="btn btn-dark" @click="startPayment('stripe')">
                 <img class="img-size" src="/images/stripe.png" />
               </button>
-              <button class="btn btn-dark mt-2" @click="startPayment('payop')">
+              <!-- <button class="btn btn-dark mt-2" @click="startPayment('payop')">
                 <img class="img-size" src="/images/payop.png" />
-              </button>
+              </button> -->
               <p class="m-0 tiny-text">
                 Klarna/Sofort payments can take up to 3 days to be processed.
               </p>
@@ -216,7 +216,7 @@ export default {
         })
         .catch((err) => {
           this.$notify({
-            text: err,
+            text: err.response.data.message,
             type: "error",
           });
         });

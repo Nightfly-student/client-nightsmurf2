@@ -49,6 +49,17 @@
                   <span class="ms-1 d-none d-sm-inline">Stock</span></a
                 >
               </li>
+              <li class="nav-item">
+                <a
+                  href="#"
+                  class="nav-link align-middle px-0"
+                  @click="onClick('lootbox')"
+                  :class="{ activeLink: lootbox }"
+                >
+                  <BIconBoxes class="fs-4" />
+                  <span class="ms-1 d-none d-sm-inline">Lootbox</span>
+                </a>
+              </li>
               <li>
                 <a
                   href="#submenu3"
@@ -70,7 +81,7 @@
                       @click="onClick('coupons')"
                       :class="{ activeLink: coupons }"
                     >
-                      <span class="d-none d-sm-inline">Coupons</span></a
+                      <span class="d-none d-sm-inline">Coupons</span> 1</a
                     >
                   </li>
                   <li>
@@ -80,7 +91,17 @@
                       @click="onClick('loyalty')"
                       :class="{ activeLink: loyalty }"
                     >
-                      <span class="d-none d-sm-inline">Loyalty</span></a
+                      <span class="d-none d-sm-inline">Loyalty</span> 2</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      class="nav-link px-0"
+                      @click="onClick('loot')"
+                      :class="{ activeLink: loot }"
+                    >
+                      <span class="d-none d-sm-inline">Loot</span> 3</a
                     >
                   </li>
                 </ul>
@@ -116,6 +137,12 @@
             <div v-if="loyalty">
               <AdminLoyalty />
             </div>
+            <div v-if="loot">
+              <AdminLoot />
+            </div>
+            <div v-if="lootbox">
+              <AdminLootBox />
+            </div>
           </div>
         </div>
       </div>
@@ -130,6 +157,7 @@ import {
   BIconPersonPlus,
   BIconColumnsGap,
   BIconDiagram2,
+  BIconBoxes,
 } from "bootstrap-icons-vue";
 
 import AdminOrder from "../../components/admin-components/AdminOrder.vue";
@@ -137,6 +165,8 @@ import AdminStock from "../../components/admin-components/AdminStock.vue";
 import AdminCoupon from "../../components/admin-components/AdminCoupon.vue";
 import AdminDashboard from "../../components/admin-components/AdminDashboard.vue";
 import AdminLoyalty from "../../components/admin-components/AdminLoyalty.vue";
+import AdminLoot from "../../components/admin-components/AdminLoot.vue";
+import AdminLootBox from "../../components/admin-components/AdminLootBox.vue";
 export default {
   name: "Dashboard",
   components: {
@@ -145,11 +175,14 @@ export default {
     BIconPersonPlus,
     BIconColumnsGap,
     BIconDiagram2,
+    BIconBoxes,
     AdminOrder,
     AdminStock,
     AdminCoupon,
     AdminDashboard,
-    AdminLoyalty
+    AdminLoyalty,
+    AdminLoot,
+    AdminLootBox,
   },
   data() {
     return {
@@ -159,6 +192,8 @@ export default {
       products: false,
       coupons: false,
       loyalty: false,
+      loot: false,
+      lootbox: false,
       customers: false,
     };
   },
@@ -167,10 +202,11 @@ export default {
       this.home = false;
       this.orders = false;
       this.stock = false;
-      this.products = false;
+      (this.loot = false), (this.products = false);
       this.coupons = false;
       this.loyalty = false;
       this.customers = false;
+      this.lootbox = false;
 
       this[value] = true;
     },

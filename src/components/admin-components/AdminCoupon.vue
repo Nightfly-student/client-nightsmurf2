@@ -10,6 +10,7 @@
             <th scope="col">Discount Type</th>
             <th scope="col">Discount Amount</th>
             <th scope="col">Limit</th>
+            <th scope="col">Expire Date</th>
             <th scope="col">Delete</th>
           </tr>
         </thead>
@@ -20,8 +21,11 @@
             <td class="align-middle">{{ coupon.discount }}</td>
             <td class="align-middle">{{ coupon.portion }}</td>
             <td class="align-middle">{{ coupon.limit }}</td>
+            <td class="align-middle">{{ coupon.expireDate }}</td>
             <td class="align-middle">
-              <button class="btn btn-danger">Delete Coupon</button>
+              <button @click="deleteCoupon(coupon._id)" class="btn btn-danger">
+                Delete Coupon
+              </button>
             </td>
           </tr>
         </tbody>
@@ -69,6 +73,31 @@
             </div>
           </div>
           <div class="mb-3">
+            <div class="form-check ps-0">
+              <label for="disabledSelect" class="form-label"
+                >Discount Amount</label
+              ><br />
+              <input
+                v-model="createCoupon.amount"
+                class="form-input"
+                type="text"
+                id="disabledFieldsetCheck"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="form-check ps-0">
+              <label for="disabledSelect" class="form-label">Expire Date</label
+              ><br />
+              <Datepicker
+                class="text-light"
+                :minDate="new Date()"
+                v-model="date"
+                ref="datepicker"
+              ></Datepicker>
+            </div>
+          </div>
+          <div class="mb-3">
             <label for="disabledSelect" class="form-label">Discount Type</label>
             <select
               v-model="createCoupon.type"
@@ -85,9 +114,11 @@
     </div>
   </div>
 </template>
-
 <script>
 import axios from "axios";
+import { ref } from "vue";
+import Datepicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 import { authHeader } from "../../helpers/authHeader";
 export default {
   name: "AdminCoupon",
@@ -99,8 +130,12 @@ export default {
         limit: 0,
         amount: 0,
         type: "%",
+        date: null,
       },
     };
+  },
+  components: {
+    Datepicker,
   },
   methods: {
     getCoupons() {
@@ -119,7 +154,21 @@ export default {
           });
         });
     },
+    deleteCoupon(id) {
+      axios
+        .delete(`/api/coupons/${id}`, {
+          headers: authHeader(),
+        })
+        .then((res) => {
+          var findIndex = this.coupons.findIndex(
+            (coupons) => coupons._id === id
+          );
+          this.coupons.splice(findIndex, 1);
+          alert("Deleted Coupon");
+        });
+    },
     cCoupon() {
+      this.createCoupon.date = this.date;
       console.log(this.createCoupon);
       axios
         .post(`/api/coupons/createCoupon`, this.createCoupon, {
@@ -144,6 +193,21 @@ export default {
   },
   mounted() {
     this.getCoupons();
+  },
+  setup() {
+    const date = ref();
+    const datepicker = ref(null);
+
+    const yourCustomMethod = () => {
+      if (datepicker) {
+        // Close the menu programmatically
+        datepicker.value.closeMenu();
+      }
+    };
+
+    return {
+      date,
+    };
   },
 };
 </script>

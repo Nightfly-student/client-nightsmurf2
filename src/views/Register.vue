@@ -71,6 +71,22 @@
                   name="repassword"
                 />
               </div>
+              <div class="form-outline mb-4">
+                <Field
+                  :rules="isRequired"
+                  type="text"
+                  id="captcha"
+                  name="captcha"
+                  class="form-control form-control-lg"
+                />
+                <label class="form-label" for="form1Example23"
+                  >What is {{ numberOne }} + {{ numberTwo }}</label
+                >
+                <ErrorMessage
+                  class="form-label text-danger float-end"
+                  name="captcha"
+                />
+              </div>
               <div class="text-center">
                 <button
                   type="submit"
@@ -121,13 +137,23 @@ export default {
         .string()
         .required("Please confirm your password")
         .oneOf([yup.ref("password"), null], "Passwords don't match."),
+      captcha: yup.string().required("Answer the math question"),
     });
     return {
+      numberOne: Math.floor(Math.random() * 9),
+      numberTwo: Math.floor(Math.random() * 9),
       schema,
     };
   },
   methods: {
     onSubmit(values) {
+      if (parseInt(values.captcha) != this.numberOne + this.numberTwo) {
+        this.$notify({
+          text: "Invalid Math Question",
+          type: "error",
+        });
+        return;
+      }
       axios
         .post(`/api/users/register`, {
           name: values.username,
@@ -151,6 +177,12 @@ export default {
             type: "error",
           });
         });
+    },
+    isRequired(value) {
+      if (parseInt(value) === this.numberOne + this.numberTwo) {
+        return true;
+      }
+      return "U failed the math test";
     },
   },
 };

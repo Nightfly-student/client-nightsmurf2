@@ -53,7 +53,7 @@ export default {
         opacity: 1,
         scrollTrigger: {
           trigger: "#shop_widget",
-          start: "top center", // [trigger] [scroller] positions
+          start: "top 60%", // [trigger] [scroller] positions
           end: "20px 80%",
         },
       }

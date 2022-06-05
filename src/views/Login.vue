@@ -102,7 +102,8 @@ export default {
             text: "Successfully Logged In",
             type: "success",
           });
-        }).catch((err) => {
+        })
+        .catch((err) => {
           this.$notify({
             text: err,
             type: "error",

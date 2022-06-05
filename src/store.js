@@ -36,6 +36,7 @@ const store = createStore({
     },
     logout(state) {
       state.user = null;
+      state.token = null;
       state.isAuthenticated = false;
       state.isAdmin = false;
     },
@@ -62,9 +63,21 @@ const store = createStore({
       });
     },
     logout({ commit }) {
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
-      commit("logout");
+      return new Promise((resolve, reject) => {
+        axios
+          .post("/api/users/logout", {
+            token: JSON.parse(localStorage.getItem("token")).refresh_token,
+          })
+          .then(() => {
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
+            commit("logout");
+            resolve();
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
     },
   },
 });
