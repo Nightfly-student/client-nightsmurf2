@@ -198,9 +198,8 @@ export default {
         .then((res) => {
           this.mounted = false;
           this.order = res.data;
-          this.track(this.order.total, this.order._id);
-          if (this.order.paymentStatus != "completed") {
-            
+          if (this.order.paymentStatus === "completed") {
+           this.track(this.order.total, this.order._id);           
           }
           if (this.order.paymentMethod === "stripe") {
             axios
