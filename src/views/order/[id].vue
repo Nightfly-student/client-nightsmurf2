@@ -77,7 +77,8 @@
           >
             <h4 class="text-center">Payment Processing</h4>
             <div class="alert alert-info mt-3 text-center" role="alert">
-              Processing... Klarna, Sofort payments can take up to 3 days to process. Please watch your email.
+              Processing... Klarna, Sofort payments can take up to 3 days to
+              process. Please watch your email.
             </div>
           </div>
           <div
@@ -197,7 +198,10 @@ export default {
         .then((res) => {
           this.mounted = false;
           this.order = res.data;
-
+          this.track(this.order.total, this.order._id);
+          if (this.order.paymentStatus != "completed") {
+            
+          }
           if (this.order.paymentMethod === "stripe") {
             axios
               .get(`/api/orders/session?session=${this.order.paymentSession}`)
@@ -309,13 +313,18 @@ export default {
         });
       return found.name;
     },
-    track() {
-      this.$gtag.pageview("/order");
+    track(total, id) {
+      this.$gtag.purchase({
+        transaction_id: id,
+        event_category: "conversion",
+        event_label: "conversion",
+        value: total.toFixed(2),
+        currency: "EUR",
+      });
     },
   },
   mounted() {
     this.orderExist();
-    this.track();
   },
 };
 </script>
