@@ -1,5 +1,6 @@
 <template>
   <div>
+    <TopBanner />
     <notifications width="auto" />
     <NavBar />
     <div class="wrapper">
@@ -15,11 +16,13 @@
 
 <script>
 import NavBar from "./components/layout/NavBar.vue";
+import TopBanner from "./components/layout/TopBanner.vue";
 import Footer from "./components/layout/Footer.vue";
 export default {
   components: {
     NavBar,
     Footer,
+    TopBanner,
   },
 };
 </script>
