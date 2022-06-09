@@ -35,8 +35,8 @@ export default {
   background: #161616 !important;
 }
 @media only screen and (max-width: 800px) {
-.fs-5 {
-  font-size: 14px!important;
+#infoBar {
+  display: none;
 }
   
 }

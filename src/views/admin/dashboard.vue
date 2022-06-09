@@ -143,6 +143,11 @@
             <div v-if="lootbox">
               <AdminLootBox />
             </div>
+            <div>
+              <button @click="test" class="btn btn-primary">
+                Test mail service
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -167,6 +172,7 @@ import AdminDashboard from "../../components/admin-components/AdminDashboard.vue
 import AdminLoyalty from "../../components/admin-components/AdminLoyalty.vue";
 import AdminLoot from "../../components/admin-components/AdminLoot.vue";
 import AdminLootBox from "../../components/admin-components/AdminLootBox.vue";
+import axios from "axios";
 export default {
   name: "Dashboard",
   components: {
@@ -209,6 +215,11 @@ export default {
       this.lootbox = false;
 
       this[value] = true;
+    },
+    test() {
+      axios.post("/api/winnings/mail").then((res) => {
+        console.log(res);
+      });
     },
   },
 };
