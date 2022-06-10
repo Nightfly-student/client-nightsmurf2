@@ -15,6 +15,9 @@ app.use(router);
 app.use(store);
 app.use(Notifications);
 app.use(VueGtag, {
+    includes: [
+        {id: "AW-10906096717"}
+    ],
     config: {
         id: "UA-197110880-2",
     },
