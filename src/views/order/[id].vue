@@ -313,13 +313,15 @@ export default {
       return found.name;
     },
     track(total, id) {
-      this.$gtag.purchase({
+      this.$gtag.event('conversion', {
         transaction_id: id,
+        send_to: "AW-10906096717/U7dmCLm-ssMDEM2ot9Ao",
         event_category: "conversion",
         event_label: "conversion",
         value: total.toFixed(2),
         currency: "EUR",
       });
+
     },
   },
   mounted() {
