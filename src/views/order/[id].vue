@@ -199,7 +199,7 @@ export default {
           this.mounted = false;
           this.order = res.data;
           if (this.order.paymentStatus === "completed") {
-           this.track(this.order.total, this.order._id);           
+            this.track(this.order.total, this.order._id);
           }
           if (this.order.paymentMethod === "stripe") {
             axios
@@ -313,7 +313,7 @@ export default {
       return found.name;
     },
     track(total, id) {
-      this.$gtag.event('conversion', {
+      this.$gtag.event("conversion", {
         transaction_id: id,
         send_to: "AW-10906096717/U7dmCLm-ssMDEM2ot9Ao",
         event_category: "conversion",
@@ -321,7 +321,14 @@ export default {
         value: total.toFixed(2),
         currency: "EUR",
       });
-
+      this.$gtag.event("conversion", {
+        transaction_id: id,
+        send_to: "AW-363008517/InE1COGf6f0CEIWkjK0B",
+        event_category: "conversion",
+        event_label: "conversion",
+        value: total.toFixed(2),
+        currency: "EUR",
+      });
     },
   },
   mounted() {

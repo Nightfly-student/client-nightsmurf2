@@ -144,9 +144,6 @@
               <AdminLootBox />
             </div>
             <div>
-              <button @click="test" class="btn btn-primary">
-                Test mail service
-              </button>
             </div>
           </div>
         </div>
@@ -215,11 +212,6 @@ export default {
       this.lootbox = false;
 
       this[value] = true;
-    },
-    test() {
-      axios.post("/api/winnings/mail").then((res) => {
-        console.log(res);
-      });
     },
   },
 };

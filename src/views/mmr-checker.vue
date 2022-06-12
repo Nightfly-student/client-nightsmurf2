@@ -101,7 +101,7 @@ export default {
   },
   setup() {
     const siteData = reactive({
-      title: `LoL MMR checker - Nightsmurf`,
+      title: `LoL MMR Checker - Nightsmurf`,
       description:
         "Check your League Of Legends MMR and see what rank your MMR is closest too! You can also check on Normal MMR and Aram MMR to see if your account benefits from faster climbing in Ranked",
       image:
