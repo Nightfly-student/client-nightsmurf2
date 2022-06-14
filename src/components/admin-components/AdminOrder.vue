@@ -32,14 +32,14 @@
         </thead>
         <tbody>
           <tr v-for="order in orders" :key="order._id">
-            <th class="align-middle" scope="row">{{ order._id }}</th>
+            <th class="align-middle" scope="row">Unauthorized</th>
             <td class="align-middle">{{ order.email }}</td>
             <td class="align-middle">&euro;{{ order.total }}</td>
             <TimeFormatTable :order="order" />
             <td class="align-middle">{{ order.paymentMethod }}</td>
             <td class="align-middle">{{ order.paymentStatus }}</td>
             <td class="align-middle">
-              <router-link :to="`/order/${order._id}`"  class="btn btn-primary">Info</router-link>
+              <router-link v-if="this.$store.getters.isAdmin" :to="`/order/${order._id}`"  class="btn btn-primary">Info</router-link>
             </td>
           </tr>
         </tbody>

@@ -12,6 +12,7 @@ const store = createStore({
       token: token ? token : null,
       isAuthenticated: user ? true : false,
       isAdmin: user ? user.isAdmin : false,
+      isMod: user ? user.isMod : false,
     };
   },
   getters: {
@@ -23,6 +24,9 @@ const store = createStore({
     },
     isAdmin(state) {
       return state.isAdmin;
+    },
+    isMod(state) {
+      return state.isMod;
     },
   },
   mutations: {

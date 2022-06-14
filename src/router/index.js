@@ -204,22 +204,17 @@ const router = createRouter({
   },
 });
 
-router.beforeEach((to, from) => {
+router.beforeEach((to, from, next) => {
   if (to.meta.userAuth && !store.getters.isLogged) {
-    return {
-      path: "/login",
-    };
+    next("/login")
   }
-  if (to.meta.adminAuth && !store.getters.isLogged && !store.getters.isAdmin) {
-    return {
-      path: "/",
-    };
+  if (to.meta.adminAuth && !store.getters.isLogged || to.meta.adminAuth && !store.getters.isAdmin && !store.getters.isMod) {
+    next("/")
   }
   if (to.meta.noRoute && store.getters.isLogged) {
-    return {
-      path: "/",
-    };
+    next("/")
   }
+  next();
 });
 
 export default router;

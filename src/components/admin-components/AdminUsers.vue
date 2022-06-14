@@ -18,7 +18,14 @@
             <td class="align-middle">{{ user.email }}</td>
             <TimeFormatTable :order="user" />
             <td class="align-middle">
-              <button class="btn btn-primary">Edit</button>
+                            <button
+                class="btn btn-primary"
+                :data-bs-target="'#UserModal' + user._id"
+                data-bs-toggle="modal"
+              >
+                Edit
+              </button>
+              <UserModal :availableRoles="availableRoles" :user="user" />
             </td>
           </tr>
         </tbody>
@@ -37,9 +44,11 @@
 <script>
 import axios from "axios";
 import TimeFormatTable from "../dates/TimeFormatTable.vue";
+import UserModal from "../modals/UserModal.vue";
 export default {
   name: "AdminUsers",
   components: {
+    UserModal,
     TimeFormatTable,
   },
   data() {
@@ -49,6 +58,7 @@ export default {
       limit: 10,
       pages: 1,
       total: 0,
+      availableRoles: [],
     };
   },
   methods: {
@@ -65,9 +75,15 @@ export default {
           });
         });
     },
+        getRoles() {
+      axios.get("/api/roles").then((res) => {
+        this.availableRoles = res.data;
+      });
+    },
   },
   mounted() {
     this.getAllUsers();
+        this.getRoles();
   },
 };
 </script>
