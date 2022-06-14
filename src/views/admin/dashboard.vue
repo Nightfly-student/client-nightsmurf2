@@ -60,7 +60,7 @@
                   <span class="ms-1 d-none d-sm-inline">Lootbox</span>
                 </a>
               </li>
-              <li v-if="this.$store.isAdmin">
+              <li v-if="this.$store.getters.isAdmin">
                 <a
                   href="#submenu3"
                   data-bs-toggle="collapse"
@@ -106,7 +106,7 @@
                   </li>
                 </ul>
               </li>
-              <li v-if="this.$store.isAdmin">
+              <li v-if="this.$store.getters.isAdmin">
                 <a
                   href="#"
                   class="nav-link px-0 align-middle"
@@ -117,7 +117,7 @@
                   <span class="ms-1 d-none d-sm-inline">Users</span>
                 </a>
               </li>
-              <li v-if="this.$store.isAdmin">
+              <li v-if="this.$store.getters.isAdmin">
                 <a
                   href="#"
                   class="nav-link px-0 align-middle"
