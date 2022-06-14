@@ -110,11 +110,22 @@
                 <a
                   href="#"
                   class="nav-link px-0 align-middle"
-                  @click="onClick('customers')"
-                  :class="{ activeLink: customers }"
+                  @click="onClick('users')"
+                  :class="{ activeLink: users }"
                 >
                   <BIconDiagram2 class="fs-4" />
-                  <span class="ms-1 d-none d-sm-inline">Customers</span>
+                  <span class="ms-1 d-none d-sm-inline">Users</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="nav-link px-0 align-middle"
+                  @click="onClick('roles')"
+                  :class="{ activeLink: roles }"
+                >
+                  <BIconDiagram2 class="fs-4" />
+                  <span class="ms-1 d-none d-sm-inline">Roles</span>
                 </a>
               </li>
             </ul>
@@ -143,7 +154,11 @@
             <div v-if="lootbox">
               <AdminLootBox />
             </div>
-            <div>
+            <div v-if="users">
+              <AdminUsers/>
+            </div>
+            <div v-if="roles">
+              <AdminRoles/>
             </div>
           </div>
         </div>
@@ -169,6 +184,8 @@ import AdminDashboard from "../../components/admin-components/AdminDashboard.vue
 import AdminLoyalty from "../../components/admin-components/AdminLoyalty.vue";
 import AdminLoot from "../../components/admin-components/AdminLoot.vue";
 import AdminLootBox from "../../components/admin-components/AdminLootBox.vue";
+import AdminRoles from "../../components/admin-components/AdminRoles.vue";
+import AdminUsers from "../../components/admin-components/AdminUsers.vue";
 import axios from "axios";
 export default {
   name: "Dashboard",
@@ -185,6 +202,8 @@ export default {
     AdminDashboard,
     AdminLoyalty,
     AdminLoot,
+    AdminUsers,
+    AdminRoles,
     AdminLootBox,
   },
   data() {
@@ -198,6 +217,8 @@ export default {
       loot: false,
       lootbox: false,
       customers: false,
+      users: false,
+      roles: false,
     };
   },
   methods: {
@@ -210,6 +231,8 @@ export default {
       this.loyalty = false;
       this.customers = false;
       this.lootbox = false;
+      this.roles = false;
+      this.users = false;
 
       this[value] = true;
     },

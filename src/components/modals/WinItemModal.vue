@@ -61,10 +61,10 @@ export default {
     },
     postWinning() {
       var lootType = "coupon";
-      if(this.lootItem.pricItem === "free") {
+      if(this.lootItem.priceItem === "free") {
         lootType = "account";
       } 
-      if(this.lootItem.pricItem === "coin") {
+      if(this.lootItem.priceItem === "coin") {
         lootType = "coin";
       }
       axios.post("/api/winnings", {

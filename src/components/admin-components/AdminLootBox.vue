@@ -75,7 +75,9 @@ export default {
       axios
         .get(`/api/winnings/?limit=${this.limit}&page=${this.page}`)
         .then((res) => {
-          this.winners = res.data.docs;
+          res.data.docs.forEach(winner => {
+            this.winners.push(winner);
+          });
           this.count = res.data.total;
           this.pages = res.data.pages;
           console.log(this.winners);
