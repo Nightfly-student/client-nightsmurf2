@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <WinItemModal :loot="winningItem" :ip="ip" />
+    <WinItemModal :code="code" :loot="winningItem" :ip="ip" />
   </div>
 </template>
 
@@ -21,7 +21,6 @@ import LootboxContent from "./LootboxContent.vue";
 import WinItemModal from "../modals/WinItemModal.vue";
 import Modal from "bootstrap/js/dist/modal";
 import gsap from "gsap";
-import axios from "axios";
 
 export default {
   name: "LootboxSlider",
@@ -30,6 +29,7 @@ export default {
     winningItem: String,
     items: Array,
     ip: String,
+    code: String,
   },
   components: {
     BIconCaretDownFill,

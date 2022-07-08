@@ -30,13 +30,14 @@
       </div>
     </header>
     <div class="container-xl text-light pt-5 pb-2">
-      <div v-if="this.$store.getters.isLogged && isAllowed">
-        <div v-if="mounted">
+      <div>
+        <div v-if="mounted && this.$store.getters.isLogged && isAllowed">
           <LootboxSlider
             :items="items"
             :loot="loot"
             :winningItem="winningItem"
             :ip="ip"
+            :code="code"
             class="pt-5 pb-5"
           />
         </div>
@@ -46,86 +47,14 @@
           v-if="!mounted"
         >
           <div class="col-12 col-md-6 justify-content-center">
-            <div class="text-center text-sm-start">
-              <h1>Good Luck <strong class="text-primary">:)</strong></h1>
-              <p class="fs-5">
-                If you win an account you may claim it through our
-                <a href="https://discord.gg/yQ82SJHcU4">discord server</a>!
-              </p>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="card rounded shadow p-5">
-              <div class="row">
-                <div class="col-12 col-md-6 text-center">
-                  <h3>Free Loot Box</h3>
-                  <div class="card bg-dark p-2 mt-2 mb-2">
-                    <p class="fs-6 m-1">Looted Today</p>
-                    <p class="fs-6 m-0">{{ opened }}</p>
-                  </div>
-                  <button class="btn btn-primary mt-2" @click="openBox">
-                    Open Lootbox
-                  </button>
-                </div>
-                <div class="col-12 col-md-6">
-                  <img
-                    id="lootbox"
-                    class="img-fluid w-full"
-                    src="/images/free-lootbox.png"
-                    alt="Free Lootbox"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-if="this.$store.getters.isLogged && !isAllowed">
-        <div class="row pt-5 pb-5 align-items-center">
-          <div class="col-12 col-md-6 justify-content-center">
-            <div class="text-center text-sm-start">
+            <div
+              class="text-center text-sm-start"
+              v-if="this.$store.getters.isLogged && !isAllowed"
+            >
               <h1>Played Already <strong class="text-primary">:(</strong></h1>
               <p class="fs-5">Try again tomorrow</p>
             </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="card rounded shadow p-5">
-              <div class="row">
-                <div class="col-12 col-md-6 text-center">
-                  <h3>Free Loot Box</h3>
-                  <div class="card bg-dark p-2 mt-2 mb-2">
-                    <p class="fs-6 m-1">Looted Today</p>
-                    <p class="fs-6 m-0">{{ opened }}</p>
-                  </div>
-                  <p>
-                    Next Opening:
-                    <vue-countdown
-                      v-if="timerStarted"
-                      :time="time"
-                      :interval="100"
-                      v-slot="{ hours, minutes, seconds }"
-                    >
-                      {{ hours }}:{{ minutes }}:{{ seconds }}
-                    </vue-countdown>
-                  </p>
-                </div>
-                <div class="col-12 col-md-6">
-                  <img
-                    id="lootbox"
-                    class="img-fluid w-full"
-                    src="/images/free-lootbox.png"
-                    alt="Free Lootbox"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-if="!this.$store.getters.isLogged">
-        <div class="row pt-5 pb-5 align-items-center">
-          <div class="col-12 col-md-6 justify-content-center">
-            <div class="text-center text-sm-start">
+            <div v-else class="text-center text-sm-start">
               <h1>Good Luck <strong class="text-primary">:)</strong></h1>
               <p class="fs-5">
                 If you win an account you may claim it through our
@@ -142,12 +71,38 @@
                     <p class="fs-6 m-1">Looted Today</p>
                     <p class="fs-6 m-0">{{ opened }}</p>
                   </div>
-                  <router-link
-                    type="button"
-                    to="/login"
-                    class="btn btn-primary mt-2"
-                    >Login To Open</router-link
-                  >
+                  <div v-if="!isLoading">
+                    <button
+                      v-if="this.$store.getters.isLogged && isAllowed"
+                      class="btn btn-primary mt-2"
+                      @click="openBox"
+                    >
+                      Open Lootbox
+                    </button>
+                    <p v-if="this.$store.getters.isLogged && !isAllowed">
+                      Next Opening:
+                      <vue-countdown
+                        v-if="timerStarted"
+                        :time="time"
+                        :interval="100"
+                        v-slot="{ hours, minutes, seconds }"
+                      >
+                        {{ hours }}:{{ minutes }}:{{ seconds }}
+                      </vue-countdown>
+                    </p>
+                    <router-link
+                      v-if="!this.$store.getters.isLogged"
+                      type="button"
+                      to="/login"
+                      class="btn btn-primary mt-2"
+                      >Login To Open</router-link
+                    >
+                  </div>
+                  <div v-if="isLoading" class="text-center">
+                    <div class="spinner-border text-primary m-0 p-0" role="status">
+                      <span class="sr-only m-0 p-0"></span>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-12 col-md-6">
                   <img
@@ -163,6 +118,9 @@
         </div>
       </div>
       <div>
+        <div v-if="!isAllowed && this.$store.getters.isLogged" class="alert alert-info" role="alert">
+          Adblocker May Block your attempt to use the lootbox.
+        </div>
         <h2>Lootbox Content</h2>
         <div class="row justif g-3">
           <LootboxContent
@@ -248,68 +206,27 @@ export default {
       items: [],
       winningItem: "",
       mounted: false,
-      ip: "",
       isAllowed: false,
       timerStarted: false,
+      isLoading: true,
       opened: 0,
       time: 0,
+      code: "",
     };
   },
   methods: {
     openBox() {
-      axios.get("/api/loot").then((res) => {
-        var array = [];
-        var weights = [];
-        res.data.forEach((l) => {
-          var newOdd = 100 / l.odds / 100;
-          var name = l._id;
-          weights.push(newOdd);
-          array.push(name);
-        });
-
-        const createDistribution = (array, weights, size) => {
-          const distribution = [];
-          const sum = weights.reduce((a, b) => a + b);
-          const quant = size / sum;
-          for (let i = 0; i < array.length; ++i) {
-            const limit = quant * weights[i];
-            for (let j = 0; j < limit; ++j) {
-              distribution.push(i);
-            }
-          }
-          return distribution;
-        };
-        const randomIndex = (distribution) => {
-          const index = Math.floor(distribution.length * Math.random());
-          return distribution[index];
-        };
-        const distribution = createDistribution(array, weights, 100);
-
-        axios.get(`/api/winnings/ip/${this.ip}`).then((resp) => {
-          if (resp.data) {
-            for (let i = 1; i < 15; i++) {
-              var index = randomIndex(distribution);
-              if (i === 2 || i === 4 || i === 6 || i === 8 || i === 12) {
-                index = Math.floor(Math.random() * this.loot.length);
-              }
-              if (i === 5) {
-                this.winningItem = array[index];
-              }
-              this.items.push(array[index]);
-            }
-            gsap.to("#overlay", { opacity: 0, duration: 0.75 });
-            setTimeout(() => {
-              this.mounted = true;
-            }, 750);
-          } else {
-            this.mounted = false;
-            alert("Please turn off your VPN or other software");
-          }
-        });
+      axios.get("/api/loot/slot").then((res) => {
+        this.winningItem = res.data.winner;
+        this.items = res.data.items;
+        this.code = res.data.code;
+        gsap.to("#overlay", { opacity: 0, duration: 0.75 });
+        setTimeout(() => {
+          this.mounted = true;
+        }, 750);
       });
     },
     countdown(t) {
-      console.log(t);
       this.time = moment(t).add(1, "d").toDate() - moment().toDate();
       this.timerStarted = true;
     },
@@ -322,17 +239,21 @@ export default {
       this.opened = res.data.played;
     });
     if (this.$store.getters.isLogged) {
-      axios.get("https://api.ipify.org/?format=json").then((ret) => {
-        this.ip = ret.data.ip;
-        axios.get(`/api/winnings/played?ip=${this.ip}`).then((res) => {
-          if (res.data.allowedToPlay) {
-            this.isAllowed = true;
+      axios.get(`/api/winnings/played`).then((res) => {
+        if (res.data.allowedToPlay) {
+          this.isAllowed = true;
+        } else {
+          if(res.data.reason.includes("VPN")) {
+            alert("Please turn off your vpn");
           } else {
-            this.countdown(res.data.lastPlay);
-            this.isAllowed = false;
+          this.countdown(res.data.lastPlay);
+          this.isAllowed = false;
           }
-        });
+        }
+        this.isLoading = false;
       });
+    } else {
+      this.isLoading = false;
     }
     gsap.fromTo(
       "#lootbox",

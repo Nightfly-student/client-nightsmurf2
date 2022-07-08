@@ -21,7 +21,9 @@
                 v-if="lootItem.priceItem != 'free'"
                 class="text-center m-0 p-0"
               >
-                Your Coupon: <strong class="fs-4 text-primary">{{coupon}}</strong> <br/>Coupons expire in 24 hours
+                Your Coupon:
+                <strong class="fs-4 text-primary">{{ code }}</strong>
+                <br />Coupons expire in 24 hours
               </p>
               <p v-else class="text-center m-0 p-0">
                 Open a ticket in our Discord Server and claim your price!
@@ -42,12 +44,12 @@ export default {
   props: {
     loot: String,
     ip: String,
+    code: String,
   },
   data() {
     return {
       lootItem: {},
       mounted: false,
-      coupon: '',
     };
   },
   methods: {
@@ -55,26 +57,7 @@ export default {
       this.mounted = false;
       axios.get(`/api/loot/${this.loot}`).then((res) => {
         this.lootItem = res.data;
-        this.postWinning();
         this.mounted = true;
-      });
-    },
-    postWinning() {
-      var lootType = "coupon";
-      if(this.lootItem.priceItem === "free") {
-        lootType = "account";
-      } 
-      if(this.lootItem.priceItem === "coin") {
-        lootType = "coin";
-      }
-      axios.post("/api/winnings", {
-        loot: this.lootItem._id,
-        ip: this.ip,
-        lootType: lootType
-      }).then((res) => {
-        if(res.data.code) {
-          this.coupon = res.data.code
-        }
       });
     },
   },
