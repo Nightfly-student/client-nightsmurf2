@@ -20,7 +20,7 @@
             />
           </div>
         </div>
-        <p class="text-center fs-6 opacity-25">Power By WhatIsMyMMR.com</p>
+        <p class="text-center fs-6 opacity-25">Powered By WhatIsMyMMR.com</p>
       </div>
     </header>
     <div class="container-xl text-light pt-5">
