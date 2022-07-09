@@ -62,12 +62,11 @@ export default {
   },
   methods: {
     getVersion() {
-      axios
-        .get("https://ddragon.leagueoflegends.com/api/versions.json", )
-        .then((res) => {
-          this.version = res.data[0];
-          this.getChampions();
-        });
+      axios.get("/api/skins/champions").then((res) => {
+          this.version = res.data.version;
+          this.champions = res.data.champions;
+          this.championsHolder = res.data.champions;
+      })
     },
     check(reg) {
       this.skins = [];
@@ -95,16 +94,6 @@ export default {
       if (search.length === 0) {
         this.championsHolder = this.champions;
       }
-    },
-    getChampions() {
-      axios
-        .get(
-          `https://ddragon.leagueoflegends.com/cdn/${this.version}/data/en_US/champion.json`
-        )
-        .then((res) => {
-          this.champions = res.data.data;
-          this.championsHolder = res.data.data;
-        });
     },
     getSkinIds(reg) {
       axios.get(`/api/licences/skinstock?region=${reg}`).then((res) => {

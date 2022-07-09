@@ -47,6 +47,8 @@ export default {
       title: `${route.params.slug.replaceAll("-", " ")} - Nightsmurf`,
       image:
         "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+      type: "article",
+      url: new URL(location.href),
     });
     useHead({
       title: computed(() => siteData.title),
@@ -58,6 +60,20 @@ export default {
         {
           property: "og:image",
           content: computed(() => siteData.image),
+        },
+        {
+          property: "og:type",
+          content: computed(() => siteData.type),
+        },
+        {
+          property: "og:url",
+          content: computed(() => siteData.url),
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: computed(() => siteData.url),
         },
       ],
     });

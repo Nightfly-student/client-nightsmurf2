@@ -54,11 +54,13 @@ export default {
   },
   setup() {
     const siteData = reactive({
-      title: "Loyalty Program - Nightsmurf",
+      title: "Get Discounts With Our Loyalty Program - Nightsmurf",
       description:
-        "Nightsmurf's loyalty system is here, and it is ready to award our loyal customers. Currently the program consists of different tiers, offering various discounts. By reaching each threshold your account automatically adds the discount on to your next purchase.",
+        "Nightsmurf's loyalty system is here, and it is ready to award our loyal customers. You will get rewarded discounted prices and more",
       image:
         "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+      type: "website",
+      url: new URL(location.href),
     });
 
     useHead({
@@ -79,6 +81,20 @@ export default {
         {
           property: "og:image",
           content: computed(() => siteData.image),
+        },
+        {
+          property: "og:type",
+          content: computed(() => siteData.type),
+        },
+        {
+          property: "og:url",
+          content: computed(() => siteData.url),
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: computed(() => siteData.url),
         },
       ],
     });

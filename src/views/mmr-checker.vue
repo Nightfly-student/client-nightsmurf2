@@ -16,7 +16,8 @@
               id="lootbox"
               class="img-fluid h-75 w-full"
               src="/images/logowithout.png"
-              alt="Nightsmurf logo"
+              alt="Nightsmurf logo as Header Image"
+              title="Nightsmurf Big Logo"
             />
           </div>
         </div>
@@ -101,11 +102,13 @@ export default {
   },
   setup() {
     const siteData = reactive({
-      title: `LoL MMR Checker - Nightsmurf`,
+      title: `League of Legends MMR Checker - Nightsmurf`,
       description:
-        "Check your League Of Legends MMR and see what rank your MMR is closest too! You can also check on Normal MMR and Aram MMR to see if your account benefits from faster climbing in Ranked",
+        "Check your League Of Legends MMR and see what rank your MMR is closest too. You can also check on Normal MMR and Aram MMR",
       image:
         "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+      type: "website",
+      url: new URL(location.href),
     });
 
     useHead({
@@ -126,6 +129,20 @@ export default {
         {
           property: "og:image",
           content: computed(() => siteData.image),
+        },
+        {
+          property: "og:type",
+          content: computed(() => siteData.type),
+        },
+        {
+          property: "og:url",
+          content: computed(() => siteData.url),
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: computed(() => siteData.url),
         },
       ],
     });

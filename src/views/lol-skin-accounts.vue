@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import { useHead } from '@vueuse/head';
+import { useHead } from "@vueuse/head";
 import CarouselPopular from "../components/skins-components/CarouselPopular.vue";
 import SkinChampions from "../components/skins-components/SkinChampions.vue";
-import { reactive } from '@vue/reactivity';
-import { computed } from '@vue/runtime-core';
+import { reactive } from "@vue/reactivity";
+import { computed } from "@vue/runtime-core";
 export default {
   name: "Skins",
   components: {
@@ -45,6 +45,8 @@ export default {
         "Cheap High Quality League Of Legends Smurf Skin Accounts. Instant Delivery & Life Time Warranty",
       image:
         "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+      type: "website",
+      url: new URL(location.href),
     });
 
     useHead({
@@ -65,6 +67,20 @@ export default {
         {
           property: "og:image",
           content: computed(() => siteData.image),
+        },
+        {
+          property: "og:type",
+          content: computed(() => siteData.type),
+        },
+        {
+          property: "og:url",
+          content: computed(() => siteData.url),
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: computed(() => siteData.url),
         },
       ],
     });

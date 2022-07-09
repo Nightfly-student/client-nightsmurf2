@@ -8,7 +8,7 @@
         >
           <div class="row no-gutters">
             <div class="col-lg-12 col-sm-12 col-12 text-center">
-              <img :src="blog.image" class="img-fluid img-size p-2" alt="" />
+              <img :src="blog.image" class="img-fluid img-size p-2" alt="Blog post Image" :title="blog.title" />
             </div>
             <div class="col-lg-12 col-sm-12 col-12">
               <div class="card-block px-2 pt-4">

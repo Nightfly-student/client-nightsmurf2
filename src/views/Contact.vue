@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import { useHead } from '@vueuse/head';
-import { reactive } from '@vue/reactivity';
-import { computed } from '@vue/runtime-core';
+import { useHead } from "@vueuse/head";
+import { reactive } from "@vue/reactivity";
+import { computed } from "@vue/runtime-core";
 export default {
   name: "Contact",
   methods: {
@@ -42,11 +42,13 @@ export default {
   },
   setup() {
     const siteData = reactive({
-      title: "Contact us - Nightsmurf",
+      title: "Got Any Issue? Contact Us Now - Nightsmurf",
       description:
         "Need any support with your League of Legends Smurf Account, Dont mind asking us over on Discord or Mail us",
       image:
         "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+      type: "website",
+      url: new URL(location.href),
     });
 
     useHead({
@@ -67,6 +69,20 @@ export default {
         {
           property: "og:image",
           content: computed(() => siteData.image),
+        },
+        {
+          property: "og:type",
+          content: computed(() => siteData.type),
+        },
+        {
+          property: "og:url",
+          content: computed(() => siteData.url),
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: computed(() => siteData.url),
         },
       ],
     });

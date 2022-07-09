@@ -110,7 +110,7 @@
                 <span class="float-end">{{ session.metadata.quantity }}</span>
               </p>
               <p class="fs-5">
-                Total <span class="float-end">&euro;{{ order.total }}</span>
+                Total <span class="float-end">&euro;{{ order.total.toFixed(2) }}</span>
               </p>
             </div>
           </div>

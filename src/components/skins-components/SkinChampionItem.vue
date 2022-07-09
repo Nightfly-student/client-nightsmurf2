@@ -5,6 +5,8 @@
         class="img-circle"
         :src="imageLoading ? '/images/blank_champion.png' : imgSource"
         @load="imageLoading = false"
+        :alt="championName + ' Rounded Image'"
+        :title="championName"
       />
       <h3 class="text-center p-2">{{ champion.id }}</h3>
     </div>
@@ -22,6 +24,7 @@ export default {
     return {
       imgSource: "",
       imageLoading: true,
+      championName: ""
     };
   },
   methods: {
@@ -29,13 +32,13 @@ export default {
       this.$emit("champion", this.champion);
     },
     getUrl() {
-      var championName = this.champion.id;
+      this.championName = this.champion.id;
 
       this.imgSource =
         "https://ddragon.leagueoflegends.com/cdn/" +
         this.version +
         "/img/champion/" +
-        championName +
+        this.championName +
         ".png";
     },
   },

@@ -7,13 +7,24 @@
             <img
               src="/images/twitch_4.jpg"
               class="card-img-top img-size-pos"
-              alt="Twitch"
+              alt="League Of Legends Twitch Image"
+              title="Gangster Twitch"
             />
-            <a href="#checkChampionsSkinsScroll" @click="onClick('Twitch')" class="btn btn-primary button-buy-now">Check Stock</a>
+            <a
+              href="#checkChampionsSkinsScroll"
+              @click="onClick('Twitch')"
+              class="btn btn-primary button-buy-now"
+              >Check Stock</a
+            >
             <div class="py-3">
               <div class="row justify-content-center align-items-center p-2">
                 <div class="col-2">
-                  <img class="round-champ mt-2 mx-2" src="/images/Twitch.png" />
+                  <img
+                    class="round-champ mt-2 mx-2"
+                    src="/images/Twitch.png"
+                    alt="Twitch Rounded Image"
+                    title="Twitch Round"
+                  />
                 </div>
                 <div class="col-10">
                   <h5 class="card-title pt-3 text-center">Gangster Twitch</h5>
@@ -27,15 +38,23 @@
             <img
               src="/images/Kassadin_5.jpg"
               class="card-img-top img-size-pos"
-              alt="Kassadin"
+              alt="League Of Legends Kassadin Image"
+              title="Cosmic Reaver Kassadin"
             />
-            <a href="#checkChampionsSkinsScroll" @click="onClick('Kassadin')" class="btn btn-primary button-buy-now">Check Stock</a>
+            <a
+              href="#checkChampionsSkinsScroll"
+              @click="onClick('Kassadin')"
+              class="btn btn-primary button-buy-now"
+              >Check Stock</a
+            >
             <div class="py-3">
               <div class="row justify-content-center align-items-center p-2">
                 <div class="col-2">
                   <img
                     class="round-champ mt-2 mx-2"
                     src="/images/Kassadin.png"
+                    alt="Kassadin Rounded Image"
+                    title="Kassadin Round"
                   />
                 </div>
                 <div class="col-10">
@@ -52,15 +71,23 @@
             <img
               src="/images/Nidalee_9.jpg"
               class="card-img-top img-size-pos"
-              alt="Nidalee"
+              alt="League Of Legends Nidalee Image"
+              title="Super Galaxy Nidalee"
             />
-            <a href="#checkChampionsSkinsScroll" @click="onClick('Nidalee')" class="btn btn-primary button-buy-now">Check Stock</a>
+            <a
+              href="#checkChampionsSkinsScroll"
+              @click="onClick('Nidalee')"
+              class="btn btn-primary button-buy-now"
+              >Check Stock</a
+            >
             <div class="py-3">
               <div class="row justify-content-center align-items-center p-2">
                 <div class="col-2">
                   <img
                     class="round-champ mt-2 mx-2"
                     src="/images/Nidalee.png"
+                    alt="Nidalee Rounded Image"
+                    title="Nidalee Round"
                   />
                 </div>
                 <div class="col-10">
@@ -105,7 +132,7 @@ export default {
   },
   methods: {
     onClick(value) {
-      this.$router.push({ query: { 'champion' : value } });
+      this.$router.push({ query: { champion: value } });
     },
   },
 };

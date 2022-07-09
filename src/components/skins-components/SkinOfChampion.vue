@@ -16,7 +16,8 @@
       <img
         :src="imageLoading ? '/images/blank_loading.jpg' : imgSource"
         class="card-img-top img-size-pos"
-        :alt="champion.id"
+        :alt="champion.id + ' Image'"
+        :title="champion.name"
         @load="imageLoading = false"
       />
       <a

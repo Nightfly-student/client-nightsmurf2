@@ -15,7 +15,7 @@
       </div>
       <div class="row justify-content-center p-3">
         <div class="card card-middle w-80">
-          <img class="img-fluid img-hover" :src="loot.image" />
+          <img class="img-fluid img-hover" :alt="loot.name" title="Nighsmurf lootbox" :src="loot.image" />
         </div>
       </div>
       <p class="text-center fs-5 pt-2">{{ loot.name }}</p>

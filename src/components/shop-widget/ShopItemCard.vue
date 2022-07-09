@@ -4,7 +4,8 @@
     <img
       src="/images/yone_1.jpg"
       class="card-img-top img-size-pos"
-      alt="yone"
+      alt="Nightsmurf Yone Card Image"
+      title="Yone Image"
     />
     <button
       class="btn btn-primary button-buy-now"

@@ -26,6 +26,8 @@
             <img
               class="m-2 img-size d-md-block d-none"
               src="/images/Yone_1_splash.jpg"
+              title="Yone Product Image"
+              alt="Nightsmurf Product Image of Yone"
             />
           </div>
           <div class="col-lg-6 col-md-12 pt-5 mt-5">
@@ -34,7 +36,7 @@
               <div class="col-md-4 col-12">
                 <p class="mb-0">Price per account</p>
                 <p>
-                  <strong>&euro;{{ product.price }} euro</strong>
+                  <strong>&euro;{{ product.price.toFixed(2) }} euro</strong>
                 </p>
               </div>
               <div class="col-md-4 col-12">
@@ -125,11 +127,22 @@ export default {
     const route = useRoute();
     const info = route.params.slug.split("-");
     const siteData = reactive({
-      title: `${info[0] + ' ' + info[1].toUpperCase() + ' ' + info[2].toUpperCase() + ' ' + info[3] + ' ' + info[4].toUpperCase()} - Nightsmurf`,
-      description:
-        `We Offer the cheapest ${info[0]} ${info[1].toUpperCase()} Accounts on the web. Our League Of Legends ${info[4].toUpperCase()} Smurf Accounts come with Lifetime Warranty and Instant Delivery.`,
+      title: `${
+        info[0] +
+        " " +
+        info[1].toUpperCase() +
+        " League Of Legends " +
+        info[3] +
+        " " +
+        info[4].toUpperCase()
+      } - Nightsmurf`,
+      description: `We Offer the cheapest ${
+        info[0]
+      } ${info[1].toUpperCase()} Accounts on the web. Our League Of Legends ${info[4].toUpperCase()} Smurf Accounts come with Lifetime Warranty and Instant Delivery.`,
       image:
         "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+      type: "website",
+      url: new URL(location.href),
     });
 
     useHead({
@@ -150,6 +163,20 @@ export default {
         {
           property: "og:image",
           content: computed(() => siteData.image),
+        },
+        {
+          property: "og:type",
+          content: computed(() => siteData.type),
+        },
+        {
+          property: "og:url",
+          content: computed(() => siteData.url),
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: computed(() => siteData.url),
         },
       ],
     });

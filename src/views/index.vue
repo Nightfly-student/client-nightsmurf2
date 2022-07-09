@@ -25,7 +25,8 @@
               id="header_image"
               class="img-fluid w-full"
               src="/images/yi_header.png"
-              alt="Cosmic Master Yi"
+              alt="Cosmic Master Yi Header Image"
+              title="Nightsmurf Cosmic Yi"
             />
           </div>
         </div>
@@ -327,6 +328,8 @@ export default {
         "We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more",
       image:
         "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+      type: "website",
+      url: new URL(location.href),
     });
 
     useHead({
@@ -347,6 +350,20 @@ export default {
         {
           property: "og:image",
           content: computed(() => siteData.image),
+        },
+        {
+          property: "og:type",
+          content: computed(() => siteData.type),
+        },
+        {
+          property: "og:url",
+          content: computed(() => siteData.url),
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: computed(() => siteData.url),
         },
       ],
     });

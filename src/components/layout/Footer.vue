@@ -4,11 +4,11 @@
       <div class="row pb-5 justify-content-center">
         <div class="col-md-6 col-12 pb-5">
           <div class="w-75 m-auto">
-            <h1>
-              <img class="img-size" src="/images/logo.png" /><span class="ms-3"
+            <h2>
+              <img class="img-size" src="/images/logo.png" alt="Nightsmurf Big Logo" title="Nightsmurf Logo" /><span class="ms-3"
                 >Nightsmurf</span
               >
-            </h1>
+            </h2>
             <p>
               Cheapest League of Legends Smurfs for you to stomp kids, and make
               them ragequit.

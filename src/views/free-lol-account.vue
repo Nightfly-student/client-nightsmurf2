@@ -23,7 +23,8 @@
               id="lootbox"
               class="img-fluid w-full"
               src="/images/free-lootbox.png"
-              alt="Free Lootbox"
+              alt="Free LoL Account Lootbox"
+              title="Nightsmurf Lootbox"
             />
           </div>
         </div>
@@ -99,7 +100,10 @@
                     >
                   </div>
                   <div v-if="isLoading" class="text-center">
-                    <div class="spinner-border text-primary m-0 p-0" role="status">
+                    <div
+                      class="spinner-border text-primary m-0 p-0"
+                      role="status"
+                    >
                       <span class="sr-only m-0 p-0"></span>
                     </div>
                   </div>
@@ -109,7 +113,8 @@
                     id="lootbox"
                     class="img-fluid w-full"
                     src="/images/free-lootbox.png"
-                    alt="Free Lootbox"
+                    alt="Free LoL Account Lootbox Small"
+                    title="Small Nightsmurf Lootbox"
                   />
                 </div>
               </div>
@@ -118,7 +123,11 @@
         </div>
       </div>
       <div>
-        <div v-if="!isAllowed && this.$store.getters.isLogged" class="alert alert-info" role="alert">
+        <div
+          v-if="!isAllowed && this.$store.getters.isLogged"
+          class="alert alert-info"
+          role="alert"
+        >
           Adblocker May Block your attempt to use the lootbox.
         </div>
         <h2>Lootbox Content</h2>
@@ -243,11 +252,11 @@ export default {
         if (res.data.allowedToPlay) {
           this.isAllowed = true;
         } else {
-          if(res.data.reason.includes("VPN")) {
+          if (res.data.reason.includes("VPN")) {
             alert("Please turn off your vpn");
           } else {
-          this.countdown(res.data.lastPlay);
-          this.isAllowed = false;
+            this.countdown(res.data.lastPlay);
+            this.isAllowed = false;
           }
         }
         this.isLoading = false;
@@ -274,9 +283,11 @@ export default {
     const siteData = reactive({
       title: `Free League of Legends Account - Nightsmurf`,
       description:
-        "Looking to get a free League of Legends Account? Try your luck at our free League Of Legends Lootbox, free to open every 24 hours! You may also try your luck at our giveaways on discord",
+        "Looking to get a free League of Legends Account? Try your luck at our free League Of Legends Lootbox, free to open every 24 hours!",
       image:
         "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+      type: "website",
+      url: new URL(location.href),
     });
 
     useHead({
@@ -297,6 +308,20 @@ export default {
         {
           property: "og:image",
           content: computed(() => siteData.image),
+        },
+        {
+          property: "og:type",
+          content: computed(() => siteData.type),
+        },
+        {
+          property: "og:url",
+          content: computed(() => siteData.url),
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: computed(() => siteData.url),
         },
       ],
     });

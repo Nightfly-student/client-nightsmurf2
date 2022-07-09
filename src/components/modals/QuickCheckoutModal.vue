@@ -100,7 +100,7 @@
             <div v-if="!startPay">
               <p>click on payment method to start payment process</p>
               <button class="btn btn-dark" @click="startPayment('stripe')">
-                <img class="img-size" src="/images/stripe.png" />
+                <img class="img-size" src="/images/stripe.png" alt="Stripe Payment Gateway" title="Stripe" />
               </button>
               <!-- <button class="btn btn-dark mt-2" @click="startPayment('payop')">
                 <img class="img-size" src="/images/payop.png" />

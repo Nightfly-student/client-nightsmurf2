@@ -1,47 +1,5 @@
 <template>
   <div>
-    <Head>
-      <title>
-        {{ $route.params.category.replaceAll("-", " ") }} - Nightsmurf
-      </title>
-      <meta
-        name="description"
-        content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more"
-      />
-
-      <!-- Social -->
-      <meta
-        property="og:title"
-        :content="
-          $route.params.category.replaceAll('-', ' ') + ' - Nightsmurf '
-        "
-      />
-      <meta
-        property="og:description"
-        content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more"
-      />
-      <meta
-        property="og:image"
-        content="https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png"
-      />
-
-      <!-- Twitter -->
-      <meta
-        name="twitter:title"
-        :content="
-          $route.params.category.replaceAll('-', ' ') + ' - Nightsmurf '
-        "
-      />
-      <meta
-        name="twitter:description"
-        content="We offer the cheapest league of legends smurfs on the market. Buy your lol smurf account for EUW, NA, EUNE, TR, OCE, RU, LAN, and more"
-      />
-      <meta
-        name="twitter:image"
-        content="https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png"
-      />
-      <meta name="twitter:card" content="summary_large_image" />
-    </Head>
     <header class="text-light">
       <div class="container-xl">
         <div class="row">
@@ -91,7 +49,9 @@
         >
           <div class="col-12 col-md-8 col-lg-7 mb-5">
             <h6 class="text-primary">Cheap LoL Smurf</h6>
-            <h2>Why should you buy a {{whatRegion.toUpperCase()}} smurf account?</h2>
+            <h2>
+              Why should you buy a {{ whatRegion.toUpperCase() }} smurf account?
+            </h2>
             <p class="fs-5">
               It takes a regular League Of Legends player over 30 days to level
               up an account from level 1 to 30. Since you found out about
@@ -99,10 +59,18 @@
               your smurf account instantly in your mail and on our dashboard.
             </p>
             <p class="fs-5">
-              We all love to play League Of Legends and keep getting an higher elo. Every day/week/month we jump into League Of Legends for a ranked game just to climb to that dream rank, but... we all know that it keeps getting harder and harder
+              We all love to play League Of Legends and keep getting an higher
+              elo. Every day/week/month we jump into League Of Legends for a
+              ranked game just to climb to that dream rank, but... we all know
+              that it keeps getting harder and harder
             </p>
             <p class="fs-5">
-              While grinding {{whatRegion}} League of Legends on your main account, you could end up getting stuck in a rank. This may be the case of bad team mates, or you not improving fast enough. A LoL smurf account could save you. You may start from scratch again, but when you reach your own elo, your account will have a better MMR. This means you earn more LP and you get a Higher Rank
+              While grinding {{ whatRegion }} League of Legends on your main
+              account, you could end up getting stuck in a rank. This may be the
+              case of bad team mates, or you not improving fast enough. A LoL
+              smurf account could save you. You may start from scratch again,
+              but when you reach your own elo, your account will have a better
+              MMR. This means you earn more LP and you get a Higher Rank
             </p>
           </div>
         </div>
@@ -115,13 +83,20 @@
             <h6 class="text-primary">Who?</h6>
             <h2>Who are we?</h2>
             <p class="fs-5">
-              We are Nightsmurf.com and are dedicated League of Legends since 2016. We changed names, we changed platforms and ended up creating our own webshop.
+              We are Nightsmurf.com and are dedicated League of Legends since
+              2016. We changed names, we changed platforms and ended up creating
+              our own webshop.
             </p>
             <p class="fs-5">
-              Over the years we learned that being a LoL seller is risky. We dealed with scammers, we dealed with issues from payment provider and even dealed with issue from the goverment. We overcame these things to get you the best product and service we can deliver.
+              Over the years we learned that being a LoL seller is risky. We
+              dealed with scammers, we dealed with issues from payment provider
+              and even dealed with issue from the goverment. We overcame these
+              things to get you the best product and service we can deliver.
             </p>
             <p class="fs-5">
-              Now we are here, with a brand new site, brand new community and some new team members. Hopefully we will end up being your favorite account supplier.
+              Now we are here, with a brand new site, brand new community and
+              some new team members. Hopefully we will end up being your
+              favorite account supplier.
             </p>
           </div>
         </div>
@@ -174,6 +149,8 @@ export default {
         "League Of Legends Smurf Accounts, Unranked, Fresh & Instant Delivery. We Offer 40k, 50k, 60k For EUW, EUNE, NA, TR, OCE, BR, LAS, LAN, RU",
       image:
         "https://res.cloudinary.com/droomsocial/image/upload/v1647780317/yi_header_vradr7.png",
+      type: "website",
+      url: new URL(location.href),
     });
 
     useHead({
@@ -194,6 +171,20 @@ export default {
         {
           property: "og:image",
           content: computed(() => siteData.image),
+        },
+        {
+          property: "og:type",
+          content: computed(() => siteData.type),
+        },
+        {
+          property: "og:url",
+          content: computed(() => siteData.url),
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: computed(() => siteData.url),
         },
       ],
     });
