@@ -39,7 +39,7 @@
               >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/"
+              <router-link class="nav-link" to="/faq"
                 >Frequently Asked Questions</router-link
               >
             </li>

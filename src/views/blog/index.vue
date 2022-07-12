@@ -11,6 +11,7 @@
         </div>
       </div>
     </header>
+
     <div class="container-xl divider-top pb-4">
       <div
         v-for="blog in blogs"
@@ -20,21 +21,23 @@
       >
         <div class="row no-gutters">
           <div class="col-lg-5 col-sm-12 col-12">
-            <img :src="blog.image" class="img-fluid img-size" alt="" />
+            <img
+              :src="blog.frontmatter.socialImage"
+              class="img-fluid img-size"
+              alt=""
+            />
           </div>
           <div class="col-lg-6 col-sm-12 col-12">
             <div class="card-block px-2 pt-4">
-              <h4 class="card-title">{{ blog.title }}</h4>
+              <h4 class="card-title">{{ blog.frontmatter.title }}</h4>
               <p
                 class="card-text pb-4 mb-5"
-                v-html="
-                  blog.content
-                    .replace(/<\/?[a-z][a-z0-9]*[^<>]*>/gi, '')
-                    .substr(0, 450) + '.....'
-                "
+                v-html="blog.frontmatter.metaDesc"
               ></p>
               <div class="position-absolute bottom-0 mb-3">
-                <a href="#" class="btn btn-primary">Read More</a>
+                <router-link :to="'/blog/' + blog.slug" class="btn btn-primary"
+                  >Read More</router-link
+                >
               </div>
             </div>
           </div>
@@ -45,10 +48,11 @@
 </template>
 
 <script>
-import axios from "axios";
 import { reactive } from "@vue/reactivity";
 import { useHead } from "@vueuse/head";
 import { computed } from "@vue/runtime-core";
+import axios from "axios";
+
 export default {
   name: "Blogs",
   data() {
@@ -56,16 +60,11 @@ export default {
       blogs: [],
     };
   },
-  methods: {
-    getBlogPosts() {
-      axios.get("/api/blogs").then((res) => {
-        this.blogs = res.data;
-        console.log(res.data);
-      });
-    },
-  },
-  mounted() {
-    this.getBlogPosts();
+  created() {
+    axios.get("/api/blogs").then((res) => {
+      this.blogs = res.data;
+      console.log(res.data);
+    });
   },
   setup() {
     const siteData = reactive({
@@ -124,5 +123,9 @@ export default {
 }
 .img-size {
   max-width: 100%;
+}
+.card-title:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 </style>

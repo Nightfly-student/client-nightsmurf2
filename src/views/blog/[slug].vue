@@ -6,12 +6,14 @@
       </title>
     </Head>
     <div class="pt-5 text-light">
-      <h1 class="text-center">{{ blog.title }}</h1>
-      <img class="img-size pt-3 pb-3" :src="blog.image" />
+      <h1 class="text-center">{{ blog.front.title }}</h1>
+      <img class="img-size pt-3 pb-3" :src="blog.front.socialImage" />
       <button class="btn btn-primary m-4" @click="$router.push('/blog')">
         Return to Blog
       </button>
-      <div class="container-lg w-75 pb-5" v-html="blog.content"></div>
+      <div id="blogPost" class="pb-5">
+      <Markdown :source="blog.content" />
+      </div>
     </div>
   </div>
 </template>
@@ -19,6 +21,7 @@
 <script>
 import { Head, useHead } from "@vueuse/head";
 import axios from "axios";
+import Markdown from 'vue3-markdown-it';
 import { reactive } from "@vue/reactivity";
 import { computed } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
@@ -30,6 +33,9 @@ export default {
       mounted: false,
     };
   },
+  components: {
+    Markdown
+  },
   methods: {
     getBlogPost() {
       axios.get(`/api/blogs/${this.$route.params.slug}`).then((res) => {
@@ -38,7 +44,7 @@ export default {
       });
     },
   },
-  mounted() {
+  created() {
     this.getBlogPost();
   },
   setup() {
@@ -84,5 +90,8 @@ export default {
 <style scoped>
 .img-size {
   width: 100%;
+}
+#blogPost /deep/ img {
+   max-width: 100%!important;
 }
 </style>

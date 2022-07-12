@@ -8,23 +8,21 @@
         >
           <div class="row no-gutters">
             <div class="col-lg-12 col-sm-12 col-12 text-center">
-              <img :src="blog.image" class="img-fluid img-size p-2" alt="Blog post Image" :title="blog.title" />
+              <img :src="blog.frontmatter.socialImage" class="img-fluid img-size p-2" alt="Blog post Image" :title="blog.frontmatter.title" />
             </div>
             <div class="col-lg-12 col-sm-12 col-12">
               <div class="card-block px-2 pt-4">
-                <h4 class="card-title text-center">{{ blog.title }}</h4>
+                <h4 class="card-title text-center">{{ blog.frontmatter.title }}</h4>
                 <p
                   class="card-text pb-4 mb-5"
                   v-html="
-                    blog.content
-                      .replace(/<\/?[a-z][a-z0-9]*[^<>]*>/gi, '')
-                      .substr(0, 200) + '.....'
+                    blog.frontmatter.metaDesc
                   "
                 ></p>
               </div>
               <div class="card-footer">
                 <div class="text-center">
-                  <a href="#" class="btn btn-primary w-75">Read More</a>
+                  <router-link :to='"/blog/"+blog.slug' class="btn btn-primary w-75">Read More</router-link>
                 </div>
               </div>
             </div>
