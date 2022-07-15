@@ -211,9 +211,13 @@ router.beforeEach((to, from, next) => {
   if (to.meta.adminAuth && !store.getters.isLogged || to.meta.adminAuth && !store.getters.isAdmin && !store.getters.isMod) {
     next("/")
   }
+  if(to.meta.affiliateAuth && store.getters.isLogged && !store.getters.isAffiliate || to.meta.affiliateAuth && !store.getters.isLogged) {
+    next("/");
+  }
   if (to.meta.noRoute && store.getters.isLogged) {
     next("/")
   }
+
   next();
 });
 

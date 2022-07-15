@@ -128,6 +128,17 @@
                   <span class="ms-1 d-none d-sm-inline">Roles</span>
                 </a>
               </li>
+              <li v-if="this.$store.getters.isAdmin">
+                <a
+                  href="#"
+                  class="nav-link px-0 align-middle"
+                  @click="onClick('affiliate')"
+                  :class="{ activeLink: affiliate }"
+                >
+                  <BIconDiagram2 class="fs-4" />
+                  <span class="ms-1 d-none d-sm-inline">Affiliates</span>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -155,10 +166,13 @@
               <AdminLootBox />
             </div>
             <div v-if="users">
-              <AdminUsers/>
+              <AdminUsers />
             </div>
             <div v-if="roles">
-              <AdminRoles/>
+              <AdminRoles />
+            </div>
+            <div v-if="affiliate">
+              <AdminAffiliate/>
             </div>
           </div>
         </div>
@@ -186,7 +200,7 @@ import AdminLoot from "../../components/admin-components/AdminLoot.vue";
 import AdminLootBox from "../../components/admin-components/AdminLootBox.vue";
 import AdminRoles from "../../components/admin-components/AdminRoles.vue";
 import AdminUsers from "../../components/admin-components/AdminUsers.vue";
-import axios from "axios";
+import AdminAffiliate from "../../components/admin-components/AdminAffiliate.vue";
 export default {
   name: "Dashboard",
   components: {
@@ -205,6 +219,7 @@ export default {
     AdminUsers,
     AdminRoles,
     AdminLootBox,
+    AdminAffiliate
   },
   data() {
     return {
@@ -219,6 +234,7 @@ export default {
       customers: false,
       users: false,
       roles: false,
+      affiliate: false,
     };
   },
   methods: {
@@ -233,6 +249,7 @@ export default {
       this.lootbox = false;
       this.roles = false;
       this.users = false;
+      this.affiliate = false;
 
       this[value] = true;
     },

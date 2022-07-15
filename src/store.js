@@ -1,9 +1,10 @@
 import { createStore } from "vuex";
+import router from "./router/index";
 import axios from "axios";
-import { authHeader } from "./helpers/authHeader";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const token = JSON.parse(localStorage.getItem("token"));
+const affiliate = JSON.parse(localStorage.getItem("affiliate"));
 
 const store = createStore({
   state() {
@@ -13,6 +14,8 @@ const store = createStore({
       isAuthenticated: user ? true : false,
       isAdmin: user ? user.isAdmin : false,
       isMod: user ? user.isMod : false,
+      isAffiliate: user ? user.isAffiliate : false,
+      isRedirected: affiliate ? affiliate : null,
     };
   },
   getters: {
@@ -28,12 +31,17 @@ const store = createStore({
     isMod(state) {
       return state.isMod;
     },
+    isAffiliate(state) {
+      return state.isAffiliate;
+    },
   },
   mutations: {
     loginSuccesful(state, payload) {
       state.user = payload;
       state.isAuthenticated = true;
       state.isAdmin = payload.isAdmin;
+      state.isMod = payload.isMod;
+      state.isAffiliate = payload.isAffiliate;
     },
     tokenSuccesful(state, payload) {
       state.token = payload;
@@ -43,6 +51,11 @@ const store = createStore({
       state.token = null;
       state.isAuthenticated = false;
       state.isAdmin = false;
+      state.isMod = false;
+      state.isAffiliate = false;
+    },
+    affiliateAdd(state, payload) {
+      state.isRedirected = payload;
     },
   },
   actions: {
@@ -80,6 +93,35 @@ const store = createStore({
           })
           .catch((error) => {
             reject(error);
+          });
+      });
+    },
+    affiliate({ commit }, { affiliate }) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`/api/affiliates/r/${affiliate}`)
+          .then((res) => {
+            localStorage.setItem("affiliate", JSON.stringify(res.data));
+            commit("affiliateAdd", res.data);
+            resolve();
+            router.push("/");
+          })
+          .catch((err) => {
+            reject();
+          });
+      });
+    },
+    affiliateCoupon({ commit }, { coupon }) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`/api/affiliates/coupon/${coupon}`)
+          .then((res) => {
+            localStorage.setItem("affiliate", JSON.stringify(res.data));
+            commit("affiliateAdd", res.data);
+            resolve();
+          })
+          .catch((err) => {
+            reject();
           });
       });
     },

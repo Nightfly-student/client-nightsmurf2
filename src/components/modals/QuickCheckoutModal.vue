@@ -100,7 +100,12 @@
             <div v-if="!startPay">
               <p>click on payment method to start payment process</p>
               <button class="btn btn-dark" @click="startPayment('stripe')">
-                <img class="img-size" src="/images/stripe.png" alt="Stripe Payment Gateway" title="Stripe" />
+                <img
+                  class="img-size"
+                  src="/images/stripe.png"
+                  alt="Stripe Payment Gateway"
+                  title="Stripe"
+                />
               </button>
               <!-- <button class="btn btn-dark mt-2" @click="startPayment('payop')">
                 <img class="img-size" src="/images/payop.png" />
@@ -192,6 +197,7 @@ export default {
           user: userId,
           coupon: this.currentCoupon,
           paymentMethod: paymentMethod,
+          affiliate: JSON.parse(localStorage.getItem("affiliate")),
         })
         .then((res) => {
           window.open(res.data, "_self");
@@ -209,6 +215,9 @@ export default {
             this.product.price = this.priceHolder - res.data.portion;
           }
           this.currentCoupon = res.data.coupon;
+          this.$store.dispatch("affiliateCoupon", {
+            coupon: this.coupon,
+          });
           this.$notify({
             text: "Successfully Applied Coupon",
             type: "success",

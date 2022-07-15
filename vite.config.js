@@ -23,6 +23,7 @@ export default defineConfig({
         { dir: "src/views", baseRoute: "" },
         { dir: "src/views/admin", baseRoute: "admin" },
         { dir: "src/views/user", baseRoute: "user" },
+        { dir: "src/views/affiliate", baseRoute: "affiliate" },
       ],
       extendRoute(route, parent) {
         if (route.path === "/login" || route.path === "/register") {
@@ -46,6 +47,12 @@ export default defineConfig({
           return {
             ...route,
             meta: { adminAuth: true },
+          };
+        }
+        if (route.path.includes("affiliate/dashboard")) {
+          return {
+            ...route,
+            meta: { affiliateAuth: true },
           };
         }
       },

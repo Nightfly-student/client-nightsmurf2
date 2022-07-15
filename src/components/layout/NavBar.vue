@@ -556,7 +556,12 @@ m38 -75 c-3 -3 -9 2 -12 12 -6 14 -5 15 5 6 7 -7 10 -15 7 -18z"
           <router-link class="nav-item nav-link" to="/loyalty"
             >Loyalty Program</router-link
           >
-          <router-link class="nav-item nav-link" to="/mmr-checker">MMR Checker</router-link>
+          <router-link class="nav-item nav-link" to="/mmr-checker"
+            >MMR Checker</router-link
+          >
+          <router-link class="nav-item nav-link" to="/affiliate"
+            >Affiliate</router-link
+          >
           <router-link class="nav-item nav-link" to="/blog">Blog</router-link>
         </div>
         <div class="navbar-nav ms-auto">
@@ -582,9 +587,18 @@ m38 -75 c-3 -3 -9 2 -12 12 -6 14 -5 15 5 6 7 -7 10 -15 7 -18z"
               class="dropdown-menu dropdown-menu-dark"
               aria-labelledby="dropdownMenuLink"
             >
-              <li v-if="this.$store.getters.isAdmin || this.$store.getters.isMod">
+              <li
+                v-if="this.$store.getters.isAdmin || this.$store.getters.isMod"
+              >
                 <router-link class="dropdown-item" to="/admin/dashboard"
                   >Dashboard</router-link
+                >
+              </li>
+              <li
+                v-if="this.$store.getters.isAffiliate"
+              >
+                <router-link class="dropdown-item" to="/affiliate/dashboard"
+                  >Affiliate Dashboard</router-link
                 >
               </li>
               <li>

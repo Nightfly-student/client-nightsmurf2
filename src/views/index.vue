@@ -223,11 +223,11 @@
 </template>
 
 <script>
-import { Head, useHead } from "@vueuse/head";
 import ShopWidgetBody from "../components/shop-widget/ShopWidgetBody.vue";
 import QuoteBanner from "../components/banners/QuoteBanner.vue";
 import HeroBoxes from "../components/boxes/HeroBoxes.vue";
 import BlogCard from "../components/blog-components/BlogCard.vue";
+import { useHead } from "@vueuse/head";
 import { reactive } from "@vue/reactivity";
 import { computed } from "@vue/runtime-core";
 import gsap from "gsap";
