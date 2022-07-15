@@ -73,7 +73,7 @@
                   >
                     &euro;{{
                       (
-                        ((order.total - 1) / 100) *
+                        ((order.total - ((order.total / 100 * 21) + 1)) / 100) *
                         affiliate.percentage
                       ).toFixed(2)
                     }}
