@@ -16,7 +16,7 @@
             </button>
             <CreateCouponModal :affiliate="affiliate" />
           </div>
-          <p class="pt-2">{{ affiliate.percentage }}% off on all accounts</p>
+          <p class="pt-2">15% off on all accounts</p>
         </div>
       </div>
       <div class="col-12 col-md-4">
@@ -73,7 +73,7 @@
                   >
                     &euro;{{
                       (
-                        ((order.total - ((order.total / 100 * 21) + 1)) / 100) *
+                        ((order.total - ((order.total / 100) * 21 + 1)) / 100) *
                         affiliate.percentage
                       ).toFixed(2)
                     }}
@@ -121,8 +121,26 @@
         </div>
         <div class="card p-3 mt-4">
           <p>Your Widget</p>
-          <h2>Banner Here</h2>
-          <p class="pt-2">Use this widget for promotions.</p>
+          <div v-if="widgetMounted && widget">
+            <div>
+              <img
+                :src="widget.widget"
+                alt="widget promotion"
+                class="img-fluid"
+                title="widget"
+              />
+            </div>
+            <code>{{ widget.widget }}</code>
+            <p class="pt-2">Use this widget for promotions.</p>
+          </div>
+          <div v-if="widgetMounted && !widget">
+            <p>Please wait your widget will be made soon</p>
+          </div>
+          <div v-if="!widgetMounted">
+            <div class="spinner-border text-primary mt-4" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -157,6 +175,8 @@ export default {
       total: 0,
       completedOrders: 0,
       completedMounted: false,
+      widget: "",
+      widgetMounted: false,
     };
   },
   components: {
@@ -171,6 +191,7 @@ export default {
         this.mounted = true;
         this.getAffiliateOrders();
         this.getProductsSold();
+        this.getWidget();
       });
     },
     getProductsSold() {
@@ -192,15 +213,30 @@ export default {
           `/api/affiliates/orders/${this.affiliate._id}?limit=${this.limit}&page=${this.page}`
         )
         .then((res) => {
+          res.data.affiliateOrders.sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
           res.data.affiliateOrders.forEach((a) => {
             this.orders.push(a);
           });
           this.pages = res.data.pages;
-          this.ordersMounted = true;
           this.total = res.data.orders;
+          this.ordersMounted = true;
         })
         .catch((err) => {
           this.ordersMounted = true;
+        });
+    },
+    getWidget() {
+      axios
+        .get(`/api/affiliates/widget/${this.affiliate._id}`)
+        .then((res) => {
+          this.widget = res.data;
+          this.widgetMounted = true;
+        })
+        .catch(() => {
+          this.widgetMounted = true;
         });
     },
   },

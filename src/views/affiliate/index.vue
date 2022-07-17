@@ -100,6 +100,12 @@
                 community, also you will recieve a special link to our website.
                 This link will directly apply the customer to you.
               </p>
+              <img
+                class="img-fluid"
+                alt="example affiliate widget"
+                title="affiliate widget"
+                src="/images/b_blue.png"
+              />
             </div>
             <div class="tab-3" v-if="paid">
               <h3>Get Paid</h3>
@@ -109,6 +115,12 @@
                 payout, total earned and when/what your community has purchased
                 at Nightsmurf.
               </p>
+              <img
+                class="img-fluid"
+                alt="example affiliate dashboard"
+                title="affiliate dashboard"
+                src="/images/dashboard.png"
+              />
             </div>
           </div>
         </div>
@@ -204,5 +216,8 @@ export default {
 <style scoped>
 .card {
   background: #161616;
+}
+.img-fluid {
+  max-width: 400px;
 }
 </style>

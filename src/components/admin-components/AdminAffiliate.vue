@@ -11,7 +11,7 @@
             <th scope="col">Coupon</th>
             <th scope="col">Url</th>
             <th scope="col">Available</th>
-            <th scope="col">Paid Out</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody class="text-center">
@@ -22,9 +22,17 @@
             <td class="align-middle">/r/{{ a.url }}</td>
             <td class="align-middle">&euro;{{ a.available.toFixed(2) }}</td>
             <td class="align-middle">
-              <button class="btn btn-primary" @click="PostPaid(a._id)">
+              <button class="btn btn-success me-1" @click="PostPaid(a._id)">
                 Paid Out
               </button>
+              <button
+                :data-bs-target="'#WidgetUrl' + a._id"
+                data-bs-toggle="modal"
+                class="btn btn-primary"
+              >
+                Update Widget
+              </button>
+              <UpdateWidgetModal :affiliate="a" />
             </td>
           </tr>
         </tbody>
@@ -42,8 +50,12 @@
 
 <script>
 import axios from "axios";
+import UpdateWidgetModal from "../modals/UpdateWidgetModal.vue";
 export default {
   name: "AdminAffiliate",
+  components: {
+    UpdateWidgetModal,
+  },
   data() {
     return {
       limit: 10,
