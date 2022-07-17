@@ -119,7 +119,7 @@
                 class="img-fluid"
                 alt="example affiliate dashboard"
                 title="affiliate dashboard"
-                src="/images/affiliateDashboard.png"
+                src="/images/dashboard.png"
               />
             </div>
           </div>
