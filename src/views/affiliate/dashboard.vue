@@ -44,45 +44,48 @@
           <p v-if="ordersMounted">Orders ({{ total }})</p>
           <p v-else>Orders (0)</p>
           <div v-if="ordersMounted && ordersCount != 0">
-            <table class="table text-light">
-              <thead>
-                <tr>
-                  <th scope="col">Product</th>
-                  <th scope="col">Product Name</th>
-                  <th scope="col">Order Date</th>
-                  <th scope="col">Earned</th>
-                  <th scope="col">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="order in orders" :key="order._id">
-                  <th scope="row" class="align-middle">
-                    <img
-                      src="https://res.cloudinary.com/droomsocial/image/upload/v1647779609/logowithout_luxbdf.png"
-                      height="75"
-                      width="75"
-                    />
-                  </th>
-                  <td class="align-middle">{{ order.product.title }}</td>
-                  <td class="align-middle">
-                    <TimeFormatTable :order="order" />
-                  </td>
-                  <td
-                    class="align-middle"
-                    v-if="order.paymentStatus === 'completed'"
-                  >
-                    &euro;{{
-                      (
-                        ((order.total - ((order.total / 100) * 21 + 1)) / 100) *
-                        affiliate.percentage
-                      ).toFixed(2)
-                    }}
-                  </td>
-                  <td class="align-middle" v-else>&euro;0.00</td>
-                  <td class="align-middle">{{ order.paymentStatus }}</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="overflow-auto w-100">
+              <table class="table text-light">
+                <thead>
+                  <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Earned</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="order in orders" :key="order._id">
+                    <th scope="row" class="align-middle">
+                      <img
+                        src="https://res.cloudinary.com/droomsocial/image/upload/v1647779609/logowithout_luxbdf.png"
+                        height="75"
+                        width="75"
+                      />
+                    </th>
+                    <td class="align-middle">{{ order.product.title }}</td>
+                    <td class="align-middle">
+                      <TimeFormatTable :order="order" />
+                    </td>
+                    <td
+                      class="align-middle"
+                      v-if="order.paymentStatus === 'completed'"
+                    >
+                      &euro;{{
+                        (
+                          ((order.total - ((order.total / 100) * 21 + 1)) /
+                            100) *
+                          affiliate.percentage
+                        ).toFixed(2)
+                      }}
+                    </td>
+                    <td class="align-middle" v-else>&euro;0.00</td>
+                    <td class="align-middle">{{ order.paymentStatus }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <button
               class="btn btn-primary"
               @click="getAffiliateOrders"
